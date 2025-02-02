@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TanStackProvider from "./providers/TanStackProvider";
+import TanStackProvider from "./_providers/TanStackProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
