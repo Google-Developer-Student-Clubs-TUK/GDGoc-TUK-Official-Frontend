@@ -16,14 +16,13 @@ const HomeFooter = () => {
 
 export default HomeFooter;
 
-// @keyframes 애니메이션 정의
+// @keyframes 애니메이션
 const scrollAnimation = keyframes`
   0% { opacity: 0; }
   10% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(8px); opacity: 0; }
 `;
 
-// Styled-Component로 .scroller 스타일 정의
 const Scroller = styled.span`
   width: 2px;
   height: 12px;
