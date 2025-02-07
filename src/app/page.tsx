@@ -4,9 +4,10 @@ import HomeFooter from "./_components/_layout/HomeFooter";
 
 export default function Home() {
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div className="flex h-[400vh]">
       <Header />
       <Title />
+
       <HomeFooter />
     </div>
   );

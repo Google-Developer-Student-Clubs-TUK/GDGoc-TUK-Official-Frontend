@@ -28,7 +28,7 @@ const Scroller = styled.span`
   height: 12px;
   border-radius: 999px;
   background-color: #fff;
-  animation: ${scrollAnimation} 2s ease-in-out
+  animation: ${scrollAnimation} 1.5s ease-in-out
     //@keyframes scroll 적용// 애니메이션 지속 시간 // 애니메이션 속도 조절
     infinite; /* 무한 반복 */
 `;
