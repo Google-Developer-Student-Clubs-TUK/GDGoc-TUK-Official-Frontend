@@ -37,7 +37,6 @@ const TitleContainer = styled.div<TitleProps>`
   flex-direction: column;
   align-items: center;
   gap: 15px;
-  z-index: 10;
   position: absolute;
   transform: scale(${(props) => props.scale});
   opacity: ${(props) => props.opacity};

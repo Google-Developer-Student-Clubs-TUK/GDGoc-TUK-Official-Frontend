@@ -28,8 +28,3 @@ export const calculateAdjustedScroll = (scrollY: number, windowHeight: number) =
 };
 
 
-
-//끝까지 스크롤 여부
-export const calculateBottom= (scrollY: number, windowHeight: number)=> {
-  return  windowHeight + window.scrollY >= document.documentElement.scrollHeight
-};

@@ -22,16 +22,107 @@ export const memberData = [
         part : "FRONTEND"
       },
       {
-        name : "북극곰은사람을찢어",
+        name : "에디",
         gender : "men",
         part : "FRONTEND"
-      }
-
+      },
+      {
+        name : "에디슨",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "뽀로로",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "노는게",
+        gender : "men",
+        part : "BACKEND"
+      },
+      {
+        name : "제일좋아",
+        gender : "men",
+        part : "FRONTEND"
+      },   {
+        name : "포비",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디슨",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "뽀로로",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "노는게",
+        gender : "men",
+        part : "BACKEND"
+      },
+      {
+        name : "제일좋아",
+        gender : "men",
+        part : "FRONTEND"
+      },   {
+        name : "포비",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디슨",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "뽀로로",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "노는게",
+        gender : "men",
+        part : "BACKEND"
+      },
+      {
+        name : "제일좋아",
+        gender : "men",
+        part : "FRONTEND"
+      },   {
+        name : "포비",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디",
+        gender : "men",
+        part : "FRONTEND"
+      },
+      {
+        name : "에디슨",
+        gender : "men",
+        part : "FRONTEND"
+      },
     ]
   },
   {
     generation  : 2,
-    mamber :  [
+    member :  [
       {
         name : "차은우",
         gender : "men",
@@ -46,17 +137,13 @@ export const memberData = [
         name : "차차차은우",
         gender : "men",
         part : "FRONTEND"
-      },   {
-        name : "다함께차차차",
-        gender : "men",
-        part : "FRONTEND"
-      }
+      },  
 
     ]
   },
   {
     generation  : 3,
-    mamber :  [
+    member :  [
       {
         name : "레드",
         gender : "men",
@@ -75,7 +162,17 @@ export const memberData = [
         name : "싫다",
         gender : "men",
         part : "FRONTEND"
-      }
+      }, {
+        name : "가기",
+        gender : "men",
+        part : "FRONTEND"
+      },   {
+        name : "싫다",
+        gender : "men",
+        part : "FRONTEND"
+      }, 
     ]
   },
 ]
+
+export const generationData = [1,2,3]

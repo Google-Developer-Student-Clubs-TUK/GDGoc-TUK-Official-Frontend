@@ -2,13 +2,16 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const HomeFooter = () => {
+const HomeFooter = ({ scroller }: { scroller: boolean }) => {
   return (
     <div className="fixed bottom-0 z-50 px-[100px] py-[60px] w-full h-fit flex justify-between">
       <p className="text-xl text-[#767676]">2025</p>
-      <div className="w-[26px] h-11 pt-2 flex flex-shrink-0 rounded-[19px] border border-white justify-center ">
-        <Scroller />
-      </div>
+      {scroller && (
+        <div className="w-[26px] h-11 pt-2 flex flex-shrink-0 rounded-[19px] border border-white justify-center ">
+          <Scroller />
+        </div>
+      )}
+
       <p className=" text-xl  text-[#767676]">3RD</p>
     </div>
   );

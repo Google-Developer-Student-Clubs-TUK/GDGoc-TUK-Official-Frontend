@@ -7,11 +7,8 @@ import Title from "./_components/_home/Title";
 import Header from "./_components/_layout/Header";
 import HomeFooter from "./_components/_layout/HomeFooter";
 import IntroduceTitle from "./_components/_home/IntroduceTitle";
-import {
-  calculateAdjustedScroll,
-  calculateBottom,
-  setOpacityDown,
-} from "./_utils/scrollUtils";
+import { calculateAdjustedScroll, setOpacityDown } from "./_utils/scrollUtils";
+import MemberList from "./_components/_home/MemberList";
 
 export default function Home() {
   // 타이틀 , 소개타이틀
@@ -22,9 +19,6 @@ export default function Home() {
 
   // 스크롤 Y 위치
   const [scrollY, setScrollY] = useState(0);
-
-  // 화면 끝에 도달여부
-  const [isBottom, setIsBottom] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,13 +37,12 @@ export default function Home() {
       );
       setSectionIndex(section);
 
-      if (section !== 0) {
-        setAdjustedScroll(
-          calculateAdjustedScroll(newScrollY, windowHeight * section)
-        );
-      }
-      // 끝까지 스크롤시
-      setIsBottom(calculateBottom(newScrollY, windowHeight));
+      setAdjustedScroll(
+        calculateAdjustedScroll(
+          newScrollY,
+          section !== 0 ? windowHeight * section : 0
+        )
+      );
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -59,25 +52,26 @@ export default function Home() {
   const CurrentSection = sections[sectionIndex];
 
   return (
-    <div className="h-[400vh] w-full ">
+    <div>
       <Header />
-      <div className="w-[100%] h-screen fixed top-0  flex justify-center items-center">
-        <Background
-          opacity={setOpacityDown(scrollY)}
-          img="/image/people-bg.webp"
-        />
-        <CurrentSection
-          isBottom={isBottom}
-          scrollY={adjustedScroll === 0 ? scrollY : adjustedScroll}
-        />
+      <Background
+        opacity={setOpacityDown(scrollY)}
+        img="/image/people-bg.webp"
+      />
+      <div className="h-[400vh]">
+        <div className="z-10 sticky top-0 h-screen flex justify-center items-center">
+          <CurrentSection scrollY={adjustedScroll} />
+        </div>
       </div>
-      <HomeFooter />
+
+      <MemberList />
+      <HomeFooter scroller={scrollY === 0 ? true : false} />
     </div>
   );
 }
 
 const Background = styled.div<{ img: string; opacity: number }>`
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
   opacity: ${(props) => props.opacity};
