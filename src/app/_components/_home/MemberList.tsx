@@ -5,7 +5,8 @@ import Image from "next/image";
 
 const MemberList = () => {
   const [generation, setGeneration] = useState<number>(2);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [memberHover, setMemberHover] = useState<number | null>(null);
 
   const handleGeneration = (selectGeneration: number) => {
     setGeneration(selectGeneration);
@@ -30,7 +31,9 @@ const MemberList = () => {
         <ul className="bg-bg absolute shadow-lg w-[179px] overflow-hidden  top-[66px] rounded-lg">
           {memberData.map((item) => (
             <li
-              className=" hover:bg-[rgba(0,161,80,0.3)] cursor-pointer py-3 flex justify-center"
+              className={`${
+                item.generation === generation ? "bg-point" : ""
+              } hover:bg-[rgba(0,161,80,0.3)]  cursor-pointer py-3 flex justify-center `}
               onClick={() => handleGeneration(item.generation)}
               key={item.generation}
             >
@@ -42,11 +45,22 @@ const MemberList = () => {
         </ul>
       )}
 
-      <ul className=" mx-[100px] gap-5 mt-[100px] mb-[200px] flex flex-wrap justify-center ">
+      <MemberContainer
+        key={generation}
+        className="mx-[100px] gap-5 mt-[100px] mb-[200px] flex flex-wrap justify-center"
+      >
         {selectedGeneration?.member?.map((member, idx) => (
           <li
+            onMouseEnter={() => setMemberHover(idx)}
+            onMouseLeave={() => setMemberHover(null)}
             key={idx}
-            className="gap-4 w-[270px] h-[270px] p-[45px] flex flex-col justify-center items-center"
+            className={` ${
+              memberHover === null
+                ? "bg-transparent"
+                : memberHover !== idx
+                ? "opacity-50"
+                : " bg-[#212121]"
+            } gap-4 cursor-pointer rounded-full w-[270px] h-[270px] p-[45px] flex flex-col justify-center items-center`}
           >
             <Image
               width={125}
@@ -61,7 +75,7 @@ const MemberList = () => {
             </p>
           </li>
         ))}{" "}
-      </ul>
+      </MemberContainer>
     </MemberListContainer>
   );
 };
@@ -85,5 +99,8 @@ const MemberListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const MemberContainer = styled.ul`
   animation: ${fadeIn} 0.5s ease-in;
 `;
