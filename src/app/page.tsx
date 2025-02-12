@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <div>
-      <Header />
+      <Header bg={sectionIndex === 0 ? false : true} />
       <Background
         opacity={setOpacityDown(scrollY)}
         img="/image/people-bg.webp"

@@ -1,8 +1,12 @@
 import React from "react";
 import Image from "next/image";
-const Header = () => {
+const Header = ({ bg = false }: { bg?: boolean }) => {
   return (
-    <div className="fixed top-0 z-50 px-[100px] py-9 w-full h-fit flex justify-between">
+    <div
+      className={`${
+        bg ? "bg-bg" : "bg-transparent"
+      } fixed top-0 z-50 px-[100px] py-9 w-full h-fit flex justify-between`}
+    >
       <Image
         src="/icon/logo.png"
         alt="로고"
