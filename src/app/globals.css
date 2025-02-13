@@ -5,12 +5,16 @@
 :root {
   --primary: #2B82FB;
   --bg: #2E2E2E;
+  --point : #00A150;
+  --areaBg: #222222;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --primary: #2B82FB;
     --bg: #2E2E2E;
+    --point : #00A150;
+    --areaBg: #222222;
   }
 }
 
@@ -21,6 +25,11 @@
   text-decoration: none;
 }
 
+html {
+  margin: 0 auto;
+  font-weight: 500;
+  letter-spacing: -0.052;
+}
 
 
 body {
