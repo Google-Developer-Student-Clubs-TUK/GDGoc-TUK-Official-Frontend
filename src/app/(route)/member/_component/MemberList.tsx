@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { memberData } from "@/app/_constants/memberData";
+
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import Footer from "../_layout/Footer";
+import { memberData } from "../_constants/memberData";
+import Footer from "@/app/_components/_layout/Footer";
 
 const MemberList = () => {
   const [generation, setGeneration] = useState<number>(1);

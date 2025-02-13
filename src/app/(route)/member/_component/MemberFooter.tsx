@@ -2,7 +2,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const HomeFooter = ({ scroller }: { scroller: boolean }) => {
+const MemberFooter = ({ scroller }: { scroller: boolean }) => {
   return (
     <div className=" fixed bottom-0 z-50 px-[100px] py-[60px] w-full flex  items-baseline justify-between">
       <p className="text-xl text-[#767676]">2025</p>
@@ -17,7 +17,7 @@ const HomeFooter = ({ scroller }: { scroller: boolean }) => {
   );
 };
 
-export default HomeFooter;
+export default MemberFooter;
 
 // @keyframes 애니메이션
 const scrollAnimation = keyframes`
