@@ -4,10 +4,10 @@ import styled, { keyframes } from "styled-components";
 
 const HomeFooter = ({ scroller }: { scroller: boolean }) => {
   return (
-    <div className="fixed bottom-0 z-50 px-[100px] py-[60px] w-full h-fit flex justify-between">
+    <div className=" fixed bottom-0 z-50 px-[100px] py-[60px] w-full flex  items-baseline justify-between">
       <p className="text-xl text-[#767676]">2025</p>
       {scroller && (
-        <div className="w-[26px] h-11 pt-2 flex flex-shrink-0 rounded-[19px] border border-white justify-center ">
+        <div className="w-[26px] relative h-11 pt-2 rounded-[19px] border border-white  ">
           <Scroller />
         </div>
       )}
@@ -30,6 +30,8 @@ const Scroller = styled.span`
   width: 2px;
   height: 12px;
   border-radius: 999px;
+  position: absolute;
+  left: 45%;
   background-color: #fff;
   animation: ${scrollAnimation} 1.5s ease-in-out
     //@keyframes scroll 적용// 애니메이션 지속 시간 // 애니메이션 속도 조절

@@ -11,7 +11,8 @@ export default {
       colors: {
         primary: 'var(--primary)',
         bg: 'var(--bg)',
-        point : 'var(--point)'
+        point : 'var(--point)',
+        areaBg : 'var(--areaBg)'
       },
     },
   },

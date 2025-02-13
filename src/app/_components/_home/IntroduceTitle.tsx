@@ -10,6 +10,7 @@ const IntroduceTitle = ({ scrollY }: { scrollY: number }) => {
       <IntroduceTitleContainer
         scale={setScaleUp(scrollY)}
         opacity={setOpacityUp(scrollY)}
+        move="false"
       >
         <p className="text-3xl text-white">Google Developer Groups On Campus</p>
         <p className="text-3xl text-white">
@@ -26,13 +27,15 @@ export default IntroduceTitle;
 interface TitleProps {
   scale: number;
   opacity: number;
+  move: string;
 }
 
 const IntroduceTitleContainer = styled.div<TitleProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: scale(${(props) => props.scale});
+  transform: ${({ scale, move }) =>
+    move === "true" ? `scale(1) translateY(-70px)` : `scale(${scale})`};
   opacity: ${({ opacity }) => opacity};
   transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 `;
