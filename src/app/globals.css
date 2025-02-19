@@ -28,11 +28,41 @@
 html {
   margin: 0 auto;
   font-weight: 500;
-  letter-spacing: -0.052;
+  line-height: 160%; /* 22.4px */
+  letter-spacing: -0.35px;
+  
 }
 
 
 body {
   background: var(--bg);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+button {
+  border: none;
+  background: transparent;
+}
+
+button:focus,
+button:active,
+textarea:focus,
+textarea:active,
+input:focus,
+input:active {
+  box-shadow: none;
+  outline: none;
+}
+
+ul,
+ol,
+li {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
