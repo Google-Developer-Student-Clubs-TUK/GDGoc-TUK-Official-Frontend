@@ -12,7 +12,9 @@ export default {
         primary: 'var(--primary)',
         bg: 'var(--bg)',
         point : 'var(--point)',
-        areaBg : 'var(--areaBg)'
+        areaBg : 'var(--areaBg)',
+        hover : 'var(--hover)',
+        placeholder : 'var(--placeholder)'
       },
     },
   },

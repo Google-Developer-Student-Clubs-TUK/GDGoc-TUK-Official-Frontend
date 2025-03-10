@@ -7,6 +7,10 @@
   --bg: #2E2E2E;
   --point : #00A150;
   --areaBg: #222222;
+  --hover : #00A1504D;
+  --placeholder :  #767676;
+
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,6 +19,8 @@
     --bg: #2E2E2E;
     --point : #00A150;
     --areaBg: #222222;
+    --hover : #00A1504D;
+    --placeholder :  #767676;
   }
 }
 
