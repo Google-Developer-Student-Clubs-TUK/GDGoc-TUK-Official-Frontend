@@ -5,18 +5,28 @@ import SingleChoice from "./formType/SingleChoice";
 import ShortText from "./formType/ShortText";
 import LongText from "./formType/LongText";
 import MultipleChoice from "./formType/MultipleChoice";
-import { NewQuestion, QuestionsType } from "../../../_type/formType";
-import { useNewQuestionsStore } from "../../../_store/newQuestions";
+import { QuestionItemType } from "../../../_type/formType";
+import { useQuestionFormStore } from "../../../_store/questionForm";
+import { QuestionsType } from "../../../_type/questionsType";
+import { getUpdatedQuestionOrders } from "../../../utils/diffQuestions";
+import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
+import { deleteQuestionApi } from "../../../_api";
 
+interface NewFormPropsType extends QuestionItemType {
+  dragHandler?: React.JSX.Element;
+}
 const NewForm = ({
+  order,
+  isDeletable,
   questionId,
   questionType,
   isRequired,
   content,
-  newSubQuestions,
-}: NewQuestion) => {
+  subQuestions,
+  dragHandler,
+}: NewFormPropsType) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { updateNewField, deleteNewQuestion } = useNewQuestionsStore();
+  const { updateField, deleteNewQuestion } = useQuestionFormStore();
 
   const questionsTypesData = {
     SHORT_TEXT: {
@@ -30,37 +40,54 @@ const NewForm = ({
     SINGLE_CHOICE: {
       title: "선택형",
       component: (
-        <SingleChoice
-          questionId={questionId}
-          newSubQuestions={newSubQuestions}
-        />
+        <SingleChoice questionId={questionId} subQuestions={subQuestions} />
       ),
     },
     MULTIPLE_CHOICE: {
       title: "체크형",
       component: (
-        <MultipleChoice
-          questionId={questionId}
-          newSubQuestions={newSubQuestions}
-        />
+        <MultipleChoice questionId={questionId} subQuestions={subQuestions} />
       ),
     },
   };
 
-  const handleFormType = (item: QuestionsType) => {
+  const handleFormType = (newType: QuestionsType) => {
     setIsOpen(false);
-    updateNewField(questionId, "questionType", item);
+    updateField(questionId, "questionType", newType);
+    if (["SHORT_TEXT", "LONG_TEXT"].includes(newType)) {
+      updateField(questionId, "subQuestions", []);
+    }
+  };
+
+  const { prevQuestionList } = useQuestionFormStore();
+
+  const { mutation: deleteQuestionMutation } = useGenericMutation({
+    mutationFn: deleteQuestionApi,
+  });
+  const deleteQuestion = (questionId: number) => {
+    deleteNewQuestion(questionId);
+    if (questionId > 0) {
+      const updatedOrders = getUpdatedQuestionOrders({
+        currentQuestionList: prevQuestionList,
+        questionId: questionId,
+      });
+
+      //mutate는 한개의 인자만 받음
+      deleteQuestionMutation.mutate({
+        questionId,
+        questionOrders: updatedOrders,
+      });
+    }
   };
 
   return (
     <div className=" flex flex-col bg-areaBg p-5 w-[600px] h-fit rounded-xl border-[1px] border-[#444] shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)]">
+      {dragHandler}
       <div className="flex justify-between items-start relative">
         {/* 질문 입력 컴포넌트*/}
         <input
           value={content}
-          onChange={(e) =>
-            updateNewField(questionId, "content", e.target.value)
-          }
+          onChange={(e) => updateField(questionId, "content", e.target.value)}
           className="px-1 py-3 w-[254px] bg-transparent font-normal text-lg text-white placeholder:font-normal border-b border-[#555]  placeholder:text-white"
           type="text"
           placeholder="질문을 입력하세요."
@@ -128,20 +155,20 @@ const NewForm = ({
               className={` cursor-pointer w-[22px] h-[22px] absolute top-1/2 translate-y-[-50%]  rounded-full ${
                 !isRequired ? "left-0  bg-[#767676]" : "left-1/2 bg-[#FFBA00] "
               } transition-[0.3s]`}
-              onClick={() =>
-                updateNewField(questionId, "isRequired", !isRequired)
-              }
+              onClick={() => updateField(questionId, "isRequired", !isRequired)}
             />
           </div>
         </div>
-        <Image
-          src="/icon/delete.png"
-          alt="삭제"
-          width={20}
-          height={20}
-          onClick={() => deleteNewQuestion(questionId)}
-          className="min-w-[20px] min-h-[20px] object-contain cursor-pointer"
-        />
+        {isDeletable && (
+          <Image
+            src="/icon/delete.png"
+            alt="삭제"
+            width={20}
+            height={20}
+            onClick={() => deleteQuestion(questionId)}
+            className="min-w-[20px] min-h-[20px] object-contain cursor-pointer"
+          />
+        )}
       </div>
     </div>
   );

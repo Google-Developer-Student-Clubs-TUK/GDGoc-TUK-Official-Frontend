@@ -1,7 +1,7 @@
-import { NewSubQuestion } from "./formType";
+import { QuestionItemSubType } from "./formType";
 
 export interface ChoiceFormPropsType {
-  newSubQuestions: NewSubQuestion[];
+  subQuestions: QuestionItemSubType [];
   questionId: number;
 }
 

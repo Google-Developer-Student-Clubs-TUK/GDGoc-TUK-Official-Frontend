@@ -1,23 +1,23 @@
 import Input from "../Input/DefaultInput";
-import { useNewQuestionsStore } from "@/app/(route)/apply/_store/newQuestions";
+import { useQuestionFormStore } from "@/app/(route)/apply/_store/questionForm";
 import { ChoiceFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 
-const SingleChoice = ({ newSubQuestions, questionId }: ChoiceFormPropsType) => {
+const SingleChoice = ({ subQuestions, questionId }: ChoiceFormPropsType) => {
   const { addSubQuestion, deleteSubQuestion, updateSubField } =
-    useNewQuestionsStore();
+    useQuestionFormStore();
 
   return (
     <div className="flex flex-wrap justify-between gap-4">
-      {newSubQuestions.map((i, idx) => (
+      {subQuestions.map((i, idx) => (
         <Input
           key={idx}
           width="w-[270px]"
-          img="/icon/minus.png"
+          img="/icon/form/minus.png"
           alt="삭제"
           imgClick={() => deleteSubQuestion(questionId, idx)}
           placeholder="내용을 입력하세요."
           onChange={(e) => updateSubField(questionId, idx, e.target.value)}
-          value={i.newSubContent}
+          value={i.subContent}
         />
       ))}
       <Input

@@ -1,13 +1,10 @@
-export type QuestionsType =
-  | "SHORT_TEXT"
-  | "LONG_TEXT"
-  | "SINGLE_CHOICE"
-  | "MULTIPLE_CHOICE";
+
 
 export interface BaseQuestion {
-  questionId: number;
   questionType: string;
+  order?: number;
   isRequired: boolean;
+  isDeletable?: boolean;
 }
 
 // 수정
@@ -17,6 +14,7 @@ export interface ModifiedSubQuestion {
 }
 
 export interface ModifiedQuestion extends BaseQuestion {
+  questionId: number;
   modifiedContent: string;
   modifiedSubQuestions: ModifiedSubQuestion[];
 }
@@ -27,19 +25,37 @@ export interface NewSubQuestion {
 }
 
 export interface NewQuestion extends BaseQuestion {
+  questionId: number;
   content: string;
   newSubQuestions: NewSubQuestion[];
 }
 
-// 순서변경
+// 순서
 export interface QuestionOrder {
   questionId: number;
   order: number;
 }
 
 // 최종
-export interface FormType {
+export interface UpdateQuestionFormType {
   modifiedQuestions: ModifiedQuestion[];
   newQuestions: NewQuestion[];
   updatedQuestionOrders: QuestionOrder[];
 }
+
+export interface QuestionItemSubType {
+  subQuestionId: number;
+  subContent: string;
+}
+
+
+export interface QuestionItemType extends BaseQuestion {
+  questionId : number,
+  content: string,
+  subQuestions:  QuestionItemSubType [];
+}
+
+// 질문 조회
+// export interface QuestionListType {
+
+// }
