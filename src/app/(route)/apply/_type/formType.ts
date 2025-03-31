@@ -17,6 +17,7 @@ export interface ModifiedQuestion extends BaseQuestion {
   questionId: number;
   modifiedContent: string;
   modifiedSubQuestions: ModifiedSubQuestion[];
+  newSubQuestions :  NewSubQuestion[]
 }
 
 // new

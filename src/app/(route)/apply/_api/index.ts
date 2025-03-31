@@ -20,8 +20,23 @@ export const deleteQuestionApi = async ({
   questionId: number;
   questionOrders: QuestionOrder[];
 }) => {
-  const data = await baseAPI.delete(`/questions/${questionId}`, {
+  const data = await baseAPI.delete(`/questions/parent/${questionId}`, {
     data: { questionId, questionOrders },
   });
   return data;
 };
+
+
+export const deleteSubQuestionApi = async ({
+  questionId,
+  subQuestionId
+}: {
+  questionId: number;
+  subQuestionId: number;
+}) => {
+  const data = await baseAPI.delete(`/questions/parent/${questionId}/child/${subQuestionId}`, {
+    data: { questionId,subQuestionId },
+  });
+  return data;
+};
+

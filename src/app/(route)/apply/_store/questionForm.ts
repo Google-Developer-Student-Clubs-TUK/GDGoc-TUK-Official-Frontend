@@ -9,8 +9,8 @@ interface QuestionFormStoreType{
 
   // setQuestion
   setQuestion: (question :  QuestionItemType[]) => void
-
-  // 
+ 
+  
   addNewQuestion : () => void;
   deleteNewQuestion : (idx : number) => void;
   updateField: <T extends keyof  QuestionItemType>(questionId: number, field: T, value:  QuestionItemType[T]) => void;
@@ -33,13 +33,23 @@ export const useQuestionFormStore = create<QuestionFormStoreType>((set,get) => (
   prevQuestionList : [],
   questionList : [],
   nextQuestionId : -1,
-  nextSubQuestionId :1,
+  nextSubQuestionId :-1,
 
   updatedQuestionOrders  : [],
 
 
-  setQuestion: (question :QuestionItemType[] ) => {
-    set(() => ({  questionList: question  ,  prevQuestionList  :   question }));
+  setQuestion: (question: QuestionItemType[]) => {
+    const sortedSubQuestions = question.map((q) => ({
+      ...q,
+      subQuestions: [...q.subQuestions].sort(
+        (a, b) =>  a.subQuestionId-  b.subQuestionId
+      ),
+    }));
+  
+    set(() => ({
+      questionList:sortedSubQuestions,
+      prevQuestionList: sortedSubQuestions
+    }));
   },
 
   addNewQuestion: () => {
@@ -98,7 +108,7 @@ export const useQuestionFormStore = create<QuestionFormStoreType>((set,get) => (
               }
             : q
         ),
-        nextSubQuestionId : prev.nextSubQuestionId + 1
+        nextSubQuestionId : prev.nextSubQuestionId -1
       }),
     ),
 
@@ -107,7 +117,7 @@ export const useQuestionFormStore = create<QuestionFormStoreType>((set,get) => (
         q.questionId === questionId
           ? {
               ...q,
-              subQuestions: q.subQuestions.filter((_, index) => index !== idx),
+              subQuestions: q.subQuestions.filter((item) => item.subQuestionId !== idx),
             }
           : q
       ),

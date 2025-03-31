@@ -69,8 +69,8 @@ const ApplyAdmin = () => {
       currentQuestionList: questionList,
       newQuestions,
     });
-    console.log(questionList);
-    console.log(modifiedQuestions);
+    // console.log(questionList);
+    console.log("수정", modifiedQuestions);
 
     updateQuestionMutation.mutate({
       modifiedQuestions,

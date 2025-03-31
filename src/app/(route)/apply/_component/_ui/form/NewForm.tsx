@@ -10,7 +10,7 @@ import { useQuestionFormStore } from "../../../_store/questionForm";
 import { QuestionsType } from "../../../_type/questionsType";
 import { getUpdatedQuestionOrders } from "../../../utils/diffQuestions";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
-import { deleteQuestionApi } from "../../../_api";
+import { deleteQuestionApi, deleteSubQuestionApi } from "../../../_api";
 
 interface NewFormPropsType extends QuestionItemType {
   dragHandler?: React.JSX.Element;
@@ -26,30 +26,8 @@ const NewForm = ({
   dragHandler,
 }: NewFormPropsType) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { updateField, deleteNewQuestion } = useQuestionFormStore();
-
-  const questionsTypesData = {
-    SHORT_TEXT: {
-      title: "단답형",
-      component: <ShortText newItem={true} />,
-    },
-    LONG_TEXT: {
-      title: "장문형",
-      component: <LongText newItem={true} />,
-    },
-    SINGLE_CHOICE: {
-      title: "선택형",
-      component: (
-        <SingleChoice questionId={questionId} subQuestions={subQuestions} />
-      ),
-    },
-    MULTIPLE_CHOICE: {
-      title: "체크형",
-      component: (
-        <MultipleChoice questionId={questionId} subQuestions={subQuestions} />
-      ),
-    },
-  };
+  const { updateField, deleteNewQuestion, deleteSubQuestion } =
+    useQuestionFormStore();
 
   const handleFormType = (newType: QuestionsType) => {
     setIsOpen(false);
@@ -64,7 +42,12 @@ const NewForm = ({
   const { mutation: deleteQuestionMutation } = useGenericMutation({
     mutationFn: deleteQuestionApi,
   });
-  const deleteQuestion = (questionId: number) => {
+
+  const { mutation: deleteSubQuestionMutation } = useGenericMutation({
+    mutationFn: deleteSubQuestionApi,
+  });
+
+  const onDeleteQuestion = (questionId: number) => {
     deleteNewQuestion(questionId);
     if (questionId > 0) {
       const updatedOrders = getUpdatedQuestionOrders({
@@ -78,6 +61,47 @@ const NewForm = ({
         questionOrders: updatedOrders,
       });
     }
+  };
+  const onDeleteSubQuestion = (questionId: number, subQuestionId: number) => {
+    deleteSubQuestion(questionId, subQuestionId);
+    if (subQuestionId > 0) {
+      //mutate는 한개의 인자만 받음
+      deleteSubQuestionMutation.mutate({
+        questionId,
+        subQuestionId,
+      });
+    }
+  };
+
+  const questionsTypesData = {
+    SHORT_TEXT: {
+      title: "단답형",
+      component: <ShortText newItem={true} />,
+    },
+    LONG_TEXT: {
+      title: "장문형",
+      component: <LongText newItem={true} />,
+    },
+    SINGLE_CHOICE: {
+      title: "선택형",
+      component: (
+        <SingleChoice
+          questionId={questionId}
+          subQuestions={subQuestions}
+          deleteSubQuestion={onDeleteSubQuestion}
+        />
+      ),
+    },
+    MULTIPLE_CHOICE: {
+      title: "체크형",
+      component: (
+        <MultipleChoice
+          questionId={questionId}
+          subQuestions={subQuestions}
+          deleteSubQuestion={onDeleteSubQuestion}
+        />
+      ),
+    },
   };
 
   return (
@@ -165,7 +189,7 @@ const NewForm = ({
             alt="삭제"
             width={20}
             height={20}
-            onClick={() => deleteQuestion(questionId)}
+            onClick={() => onDeleteQuestion(questionId)}
             className="min-w-[20px] min-h-[20px] object-contain cursor-pointer"
           />
         )}

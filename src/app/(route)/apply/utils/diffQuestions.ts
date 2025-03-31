@@ -1,4 +1,4 @@
-import { NewQuestion, QuestionItemType, ModifiedQuestion, QuestionOrder } from '../_type/formType';
+import { NewQuestion, QuestionItemType, ModifiedQuestion, QuestionOrder,NewSubQuestion, ModifiedSubQuestion } from '../_type/formType';
 
 export const getNewQuestions = (questionList: QuestionItemType[]): NewQuestion[] => {
   return questionList
@@ -20,40 +20,58 @@ export const getModifiedQuestions = (
   prevQuestionList: QuestionItemType[]
 ): ModifiedQuestion[] => {
   return questionList
-    .filter((item) => {
+    .map((item) => {
       const prev = prevQuestionList.find(
         (p) => p.questionId === item.questionId
       );
-      if (!prev) return false;
+      if (!prev) return null;
 
-      const isSubQuestionChanged =
-        item.subQuestions.length !== prev.subQuestions.length ||
-        item.subQuestions.some((subItem, idx) => {
-          const prevSub = prev.subQuestions[idx];
-          return subItem.subContent !== prevSub.subContent;
-        });
+      const newSubQuestions:NewSubQuestion[]= [];
+      const modifiedSubQuestions : ModifiedSubQuestion[]= [];
+
+      item.subQuestions.forEach((subItem) => {
+        const prevSub = prev.subQuestions.find(
+          (ps) => ps.subQuestionId === subItem.subQuestionId
+        );
+
+        if (!prevSub) {
+          newSubQuestions.push({
+            newSubContent: subItem.subContent,
+          });
+
+        } else if (subItem.subContent !== prevSub.subContent) {
+          modifiedSubQuestions.push({
+            subQuestionId: subItem.subQuestionId,
+            modifiedSubContent: subItem.subContent,
+          });
+        }
+      });
 
       const isContentChanged = item.content !== prev.content;
       const isQuestionTypeChanged = item.questionType !== prev.questionType;
       const isRequiredChanged = item.isRequired !== prev.isRequired;
+      const isSubQuestionChanged =
+        newSubQuestions.length > 0 || modifiedSubQuestions.length > 0;
 
-      return (
-        isSubQuestionChanged ||
+      if (
         isContentChanged ||
         isQuestionTypeChanged ||
-        isRequiredChanged
-      );
+        isRequiredChanged ||
+        isSubQuestionChanged
+      ) {
+        return {
+          questionId: item.questionId,
+          modifiedContent: item.content,
+          questionType: item.questionType,
+          isRequired: item.isRequired,
+          newSubQuestions,
+          modifiedSubQuestions,
+        };
+      }
+
+      return null;
     })
-    .map((resultItem) => ({
-      questionId: resultItem.questionId,
-      modifiedContent: resultItem.content,
-      questionType: resultItem.questionType,
-      isRequired: resultItem.isRequired,
-      modifiedSubQuestions: resultItem.subQuestions.map((subItem) => ({
-        subQuestionId: subItem.subQuestionId,
-        modifiedSubContent: subItem.subContent,
-      })),
-    }));
+    .filter((item): item is ModifiedQuestion => item !== null);
 };
 
 export const getUpdatedQuestionOrders = ({
