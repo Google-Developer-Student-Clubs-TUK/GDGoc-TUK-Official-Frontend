@@ -1,16 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import SingleChoice from "./formType/SingleChoice";
-import ShortText from "./formType/ShortText";
-import LongText from "./formType/LongText";
-import MultipleChoice from "./formType/MultipleChoice";
+
 import { QuestionItemType } from "../../../_type/formType";
 import { useQuestionFormStore } from "../../../_store/questionForm";
 import { QuestionsType } from "../../../_type/questionsType";
 import { getUpdatedQuestionOrders } from "../../../utils/diffQuestions";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import { deleteQuestionApi, deleteSubQuestionApi } from "../../../_api";
+import { getQuestionTypeMap } from "../../../utils/getQuestionTypeMap";
 
 interface NewFormPropsType extends QuestionItemType {
   dragHandler?: React.JSX.Element;
@@ -72,37 +70,12 @@ const NewForm = ({
       });
     }
   };
-
-  const questionsTypesData = {
-    SHORT_TEXT: {
-      title: "단답형",
-      component: <ShortText newItem={true} />,
-    },
-    LONG_TEXT: {
-      title: "장문형",
-      component: <LongText newItem={true} />,
-    },
-    SINGLE_CHOICE: {
-      title: "선택형",
-      component: (
-        <SingleChoice
-          questionId={questionId}
-          subQuestions={subQuestions}
-          deleteSubQuestion={onDeleteSubQuestion}
-        />
-      ),
-    },
-    MULTIPLE_CHOICE: {
-      title: "체크형",
-      component: (
-        <MultipleChoice
-          questionId={questionId}
-          subQuestions={subQuestions}
-          deleteSubQuestion={onDeleteSubQuestion}
-        />
-      ),
-    },
-  };
+  const questionTypeMap = getQuestionTypeMap({
+    questionId,
+    subQuestions,
+    onDeleteSubQuestion,
+    admin: true,
+  });
 
   return (
     <div className=" flex flex-col bg-areaBg p-5 w-[600px] h-fit rounded-xl border-[1px] border-[#444] shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)]">
@@ -131,7 +104,7 @@ const NewForm = ({
             className=" cursor-pointer p-3 bg-transparent flex justify-between border-b border-[#555]"
           >
             <p className="font-normal text-lg text-white">
-              {questionsTypesData[questionType as QuestionsType].title}
+              {questionTypeMap[questionType as QuestionsType].title}
             </p>
             <Image
               src="/icon/slideup_arrow_top.png"
@@ -145,20 +118,20 @@ const NewForm = ({
           </div>
           {isOpen &&
             // Object.keys 가 string[] 반환 ->  FormType[]으로 타입 캐스팅
-            (Object.keys(questionsTypesData) as QuestionsType[])
+            (Object.keys(questionTypeMap) as QuestionsType[])
               .filter((item) => item !== questionType) // 현재 선택된 항목 제외
               .map((item, idx) => (
                 <div
                   key={item}
                   onClick={() => handleFormType(item)}
                   className={`cursor-pointer p-3 bg-transparent flex justify-between ${
-                    idx === Object.keys(questionsTypesData).length - 2
+                    idx === Object.keys(questionTypeMap).length - 2
                       ? ""
                       : "border-b border-[#555]"
                   }`}
                 >
                   <p className="font-normal text-lg text-white">
-                    {questionsTypesData[item].title}
+                    {questionTypeMap[item].title}
                   </p>
                 </div>
               ))}
@@ -166,7 +139,7 @@ const NewForm = ({
       </div>
       {/* 선택된 폼 렌더링 */}
       <div className="mt-4">
-        {questionsTypesData[questionType as QuestionsType].component}
+        {questionTypeMap[questionType as QuestionsType].component}
       </div>
       ;
       <div className="flex justify-between mt-10">

@@ -9,8 +9,9 @@ interface DefaultInputProps {
   alt?: string;
   btn?: boolean;
   width?: string;
-  newItem?: boolean;
+  readOnly?: boolean;
   multiImg?: string | null;
+  required?: boolean;
 
   imgClick?: (e?: React.MouseEvent<HTMLImageElement>, idx?: number) => void;
   onClick?: () => void;
@@ -24,12 +25,13 @@ const DefaultInput = ({
   value,
   imgClick,
   onClick,
+  readOnly,
   alt = "",
   img,
   multiImg,
   width = "w-full",
   btn = false,
-  newItem = false,
+  required = false,
 }: DefaultInputProps) => {
   return (
     <div className={`relative ${width}`}>
@@ -43,9 +45,9 @@ const DefaultInput = ({
              ? "cursor-pointer bg-point placeholder:text-white hover:bg-hover"
              : " bg-bg placeholder:text-placeholder"
          }`}
-        required
+        required={required}
         value={value}
-        readOnly={btn || newItem}
+        readOnly={btn || readOnly}
         placeholder={placeholder}
         style={{ margin: margin }}
       />

@@ -1,3 +1,4 @@
+import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswer";
 import Input from "../Input/DefaultInput";
 import { useQuestionFormStore } from "@/app/(route)/apply/_store/questionForm";
 import { ChoiceFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
@@ -6,32 +7,53 @@ const MultipleChoice = ({
   subQuestions,
   questionId,
   deleteSubQuestion,
+  admin = false,
+  idx,
+  required,
 }: ChoiceFormPropsType) => {
   const { addSubQuestion, updateSubField } = useQuestionFormStore();
+  const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
 
   return (
     <div className="flex flex-col gap-3">
-      {subQuestions.map((i, idx) => (
+      {subQuestions.map((i, subIdx) => (
         <Input
-          key={idx}
-          img="/icon/form/minus.png"
+          key={subIdx}
+          img={admin ? "/icon/form/minus.png" : undefined}
           multiImg="/icon/form/uncheck.png"
           alt="삭제"
-          imgClick={() => deleteSubQuestion(questionId, i.subQuestionId)}
+          imgClick={
+            !admin && deleteSubQuestion
+              ? () => deleteSubQuestion(questionId, i.subQuestionId)
+              : undefined
+          }
+          btn={
+            !admin && idx !== undefined
+              ? questionAnswerList[idx]?.includes(i.subContent)
+              : false
+          }
           placeholder="내용을 입력하세요."
-          onChange={(e) => updateSubField(questionId, idx, e.target.value)}
+          onClick={
+            !admin && idx !== undefined
+              ? () => setAnswer(idx, i.subContent, "multi")
+              : undefined
+          }
+          required={required}
+          onChange={(e) => updateSubField(questionId, subIdx, e.target.value)}
           value={i.subContent}
+          readOnly={!admin}
         />
       ))}
-
-      <Input
-        btn={true}
-        multiImg="/icon/form/uncheck.png"
-        img="/icon/plus.png"
-        alt="추가"
-        onClick={() => addSubQuestion(questionId)}
-        placeholder="선택지 추가"
-      />
+      {admin && (
+        <Input
+          btn={true}
+          multiImg="/icon/form/uncheck.png"
+          img="/icon/plus.png"
+          alt="추가"
+          onClick={() => addSubQuestion(questionId)}
+          placeholder="선택지 추가"
+        />
+      )}
     </div>
   );
 };

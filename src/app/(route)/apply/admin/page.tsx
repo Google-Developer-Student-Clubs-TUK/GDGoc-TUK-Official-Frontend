@@ -32,6 +32,7 @@ const ApplyAdmin = () => {
     questionList,
     updateOrder,
   } = useQuestionFormStore();
+
   // 드래그 훅
   const { activeItem, sensors, handleDragStart, handleDragEnd } =
     useDragSort<QuestionItemType>({
@@ -41,7 +42,6 @@ const ApplyAdmin = () => {
     });
 
   // api
-
   const { isLoading, data, isError } = useQuery({
     queryKey: ["questionList"],
     queryFn: () => questionListApi(),
@@ -69,8 +69,6 @@ const ApplyAdmin = () => {
       currentQuestionList: questionList,
       newQuestions,
     });
-    // console.log(questionList);
-    console.log("수정", modifiedQuestions);
 
     updateQuestionMutation.mutate({
       modifiedQuestions,

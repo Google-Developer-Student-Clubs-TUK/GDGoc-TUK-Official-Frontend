@@ -11,6 +11,7 @@ interface QuestionFormStoreType{
   setQuestion: (question :  QuestionItemType[]) => void
  
   
+  // newQuestion handler
   addNewQuestion : () => void;
   deleteNewQuestion : (idx : number) => void;
   updateField: <T extends keyof  QuestionItemType>(questionId: number, field: T, value:  QuestionItemType[T]) => void;

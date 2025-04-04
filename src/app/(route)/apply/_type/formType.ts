@@ -56,7 +56,3 @@ export interface QuestionItemType extends BaseQuestion {
   subQuestions:  QuestionItemSubType [];
 }
 
-// 질문 조회
-// export interface QuestionListType {
-
-// }

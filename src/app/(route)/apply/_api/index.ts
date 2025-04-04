@@ -40,3 +40,8 @@ export const deleteSubQuestionApi = async ({
   return data;
 };
 
+export const questionAnswerApi = async (answer:any) => {
+  console.log(answer)
+  const data = await baseAPI.post("/answers",answer);
+  return data;
+};
