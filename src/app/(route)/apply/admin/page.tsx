@@ -11,7 +11,6 @@ import {
 } from "@dnd-kit/sortable";
 import { SortableItem } from "../_component/_ui/SortableItem";
 
-import DragHandler from "../_component/_ui/form/DragHandler";
 import { useEffect } from "react";
 import useDragSort from "../_hook/useDragSort";
 import { QuestionItemType } from "../_type/formType";
@@ -23,6 +22,7 @@ import {
   getUpdatedQuestionOrders,
 } from "../utils/diffQuestions";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
+import DragHandler from "../_component/_ui/DragHandler";
 
 const ApplyAdmin = () => {
   const {
@@ -83,7 +83,7 @@ const ApplyAdmin = () => {
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">
           <Confirm />
-          <form className="grid gap-[60px] mt-12">
+          <form className="grid gap-[60px] mt-1 ">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter} // 충돌 감지 알고리즘
@@ -131,9 +131,15 @@ const ApplyAdmin = () => {
               </DragOverlay>
             </DndContext>
             <Button title={"질문 추가"} plus={true} onClick={addNewQuestion} />
-            <button type="button" onClick={submitQuestions}>
-              제출
-            </button>
+            <div className="flex justify-end ">
+              <Button
+                hover={false}
+                onClick={submitQuestions}
+                title={"저장하기"}
+                width="120px"
+                bg="areaBg"
+              />
+            </div>
           </form>
         </div>
       </div>

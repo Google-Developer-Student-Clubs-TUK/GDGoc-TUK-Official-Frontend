@@ -9,7 +9,6 @@ const MultipleChoice = ({
   deleteSubQuestion,
   admin = false,
   idx,
-  required,
 }: ChoiceFormPropsType) => {
   const { addSubQuestion, updateSubField } = useQuestionFormStore();
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
@@ -22,6 +21,7 @@ const MultipleChoice = ({
           img={admin ? "/icon/form/minus.png" : undefined}
           multiImg="/icon/form/uncheck.png"
           alt="삭제"
+          width="270px"
           imgClick={
             !admin && deleteSubQuestion
               ? () => deleteSubQuestion(questionId, i.subQuestionId)
@@ -29,7 +29,7 @@ const MultipleChoice = ({
           }
           btn={
             !admin && idx !== undefined
-              ? questionAnswerList[idx]?.includes(i.subContent)
+              ? questionAnswerList[idx].contents.includes(i.subContent)
               : false
           }
           placeholder="내용을 입력하세요."
@@ -38,7 +38,6 @@ const MultipleChoice = ({
               ? () => setAnswer(idx, i.subContent, "multi")
               : undefined
           }
-          required={required}
           onChange={(e) => updateSubField(questionId, subIdx, e.target.value)}
           value={i.subContent}
           readOnly={!admin}

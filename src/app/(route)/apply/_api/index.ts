@@ -1,5 +1,6 @@
 import { baseAPI } from "@/app/_lib/customApi";
 import { QuestionOrder, UpdateQuestionFormType } from "../_type/formType";
+import { EmailType ,EmailCodeType} from "../_type/emailType";
 
 export const updateQuestionApi = async (questionList: UpdateQuestionFormType) => {
   const data = await baseAPI.post("/questions", questionList);
@@ -41,7 +42,20 @@ export const deleteSubQuestionApi = async ({
 };
 
 export const questionAnswerApi = async (answer:any) => {
-  console.log(answer)
+
   const data = await baseAPI.post("/answers",answer);
   return data;
 };
+
+
+export const emailApi = async (email :EmailType  ) => {
+  const data = await baseAPI.post("/emails",email );
+  return data;
+};
+
+
+export const emailCodeApi = async (emailCode :EmailCodeType  ) => {
+  const data = await baseAPI.post("/emails/code",emailCode );
+  return data;
+};
+

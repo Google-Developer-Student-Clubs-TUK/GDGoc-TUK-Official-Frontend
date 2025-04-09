@@ -2,7 +2,7 @@ import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswe
 import { TextFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 import React from "react";
 
-const LongText = ({ required, admin, idx }: TextFormPropsType) => {
+const LongText = ({ admin, idx }: TextFormPropsType) => {
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
   return (
     <textarea
@@ -13,9 +13,8 @@ const LongText = ({ required, admin, idx }: TextFormPropsType) => {
           : undefined
       }
       className=" h-[162px] text-white px-4 py-3 w-full rounded-xl bg-bg placeholder:text-placeholder placeholder:text-base placeholder:font-normal"
-      required={required}
       value={
-        !admin && idx !== undefined ? questionAnswerList[idx]?.[0] ?? "" : ""
+        !admin && idx !== undefined ? questionAnswerList[idx].contents : ""
       }
       placeholder="질문형 대답"
     />

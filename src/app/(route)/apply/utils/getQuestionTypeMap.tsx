@@ -3,11 +3,12 @@ import LongText from "../_component/_ui/form/formType/LongText";
 import SingleChoice from "../_component/_ui/form/formType/SingleChoice";
 import MultipleChoice from "../_component/_ui/form/formType/MultipleChoice";
 import { QuestionItemType } from "@/app/(route)/apply/_type/formType";
+import EmailForm from "../_component/_ui/form/formType/EmailForm";
 
 interface QuestionTypeMapType
   extends Pick<QuestionItemType, "questionId" | "subQuestions"> {
   admin: boolean;
-  idx?: number;
+  idx: number;
   required?: boolean;
   onDeleteSubQuestion?: (questionId: number, subQuestionId: number) => void;
 }
@@ -21,6 +22,11 @@ export const getQuestionTypeMap = ({
   required = false,
 }: QuestionTypeMapType) => {
   return {
+    EMAIL: {
+      title: "이메일",
+      component: <EmailForm idx={idx} />,
+    },
+
     SHORT_TEXT: {
       title: "단답형",
       component: <ShortText required={required} idx={idx} admin={admin} />,

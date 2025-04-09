@@ -10,7 +10,7 @@ export interface ChoiceFormPropsType {
 }
 
 export interface TextFormPropsType {
-  admin: boolean;
-  idx? :  number
-  required: boolean;
+  admin?: boolean;
+  idx :  number
+  required?: boolean;
 }

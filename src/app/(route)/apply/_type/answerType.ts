@@ -20,17 +20,25 @@ export type  EnrollMentType =
 
 
 
-  export interface AnswerPostType {
-    requiredAnswer: {
-      name: string
-      studentNumber:  string
-      enrollmentStatus: EnrollMentType
-      universityYear: UniversityYearType
-      field:  FieldType
-      gender: GenderType
-      email:  string
-      major:  string
-    },
-    answers: string[][],
-    questionAndAnswerJson: string
+  export interface AnswerItemType {
+    questionId: number;
+    question: string;
+    isRequired : boolean;
+    contents: string[] 
   }
+
+
+
+  export interface  MemberProfileType  {
+    name: string;
+    studentNumber: string;
+    email: string;
+    field: FieldType
+    gender: GenderType
+    enrollmentStatus:  EnrollMentType
+    major: string;
+    universityYear: UniversityYearType
+  };
+
+
+

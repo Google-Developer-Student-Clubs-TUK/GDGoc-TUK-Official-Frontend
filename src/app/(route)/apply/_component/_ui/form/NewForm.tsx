@@ -104,7 +104,7 @@ const NewForm = ({
             className=" cursor-pointer p-3 bg-transparent flex justify-between border-b border-[#555]"
           >
             <p className="font-normal text-lg text-white">
-              {questionTypeMap[questionType as QuestionsType].title}
+              {questionTypeMap[questionType as QuestionsType]?.title}
             </p>
             <Image
               src="/icon/slideup_arrow_top.png"
@@ -119,13 +119,17 @@ const NewForm = ({
           {isOpen &&
             // Object.keys 가 string[] 반환 ->  FormType[]으로 타입 캐스팅
             (Object.keys(questionTypeMap) as QuestionsType[])
-              .filter((item) => item !== questionType) // 현재 선택된 항목 제외
+              .filter((item) => item !== questionType && item !== "EMAIL") // 현재 선택된 항목 제외
               .map((item, idx) => (
                 <div
                   key={item}
                   onClick={() => handleFormType(item)}
                   className={`cursor-pointer p-3 bg-transparent flex justify-between ${
-                    idx === Object.keys(questionTypeMap).length - 2
+                    idx ===
+                    Object.keys(questionTypeMap).filter(
+                      (item) => item !== questionType && item !== "EMAIL"
+                    ).length -
+                      1
                       ? ""
                       : "border-b border-[#555]"
                   }`}

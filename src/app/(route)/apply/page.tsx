@@ -4,78 +4,78 @@ import { useQuery } from "@tanstack/react-query";
 import { questionAnswerApi, questionListApi } from "./_api";
 import { useEffect } from "react";
 import { useQuestionFormStore } from "./_store/questionForm";
-import AnswerForm from "./_component/_ui/AnswerForm";
 import Header from "@/app/_components/_layout/Header";
 import Confirm from "./_component/Confirm";
 import { useQuestionAnswerStore } from "./_store/questionAnswer";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
+import AnswerForm from "./_component/_ui/form/AnswerForm";
+import { requiredAnswerKeyMap } from "./utils/korToEngMap";
+import Button from "@/app/_components/_ui/Button";
 
 const Apply = () => {
   const { setQuestion, questionList } = useQuestionFormStore();
   const { resetAnswers, questionAnswerList } = useQuestionAnswerStore();
+
+  // 질문 get
   const { isLoading, data, isError } = useQuery({
     queryKey: ["questionList"],
     queryFn: () => questionListApi(),
   });
 
+  // 질문 가져온 data 저장
   useEffect(() => {
     if (data) {
       const newData = data.data.questionResponses;
-      console.log(data);
       setQuestion(newData);
-      resetAnswers(newData.length);
+      resetAnswers(newData);
     }
   }, [data]);
 
-  useEffect(() => {
-    console.log(questionAnswerList);
-  }, [questionAnswerList]);
-
+  // Answer Post
   const { mutation: questionAnswerMutation } = useGenericMutation({
     mutationFn: questionAnswerApi,
   });
 
   const submitAnswer = () => {
-    const [
-      name,
-      studentNumber,
-      enrollmentStatus,
-      universityYear,
-      field,
-      gender,
-      email,
-      major,
-    ] = questionAnswerList.map((arr) => arr[0] ?? ""); // 첫 번째 값 가져오기 + fallback
+    // 필수 질문 응답 여부
+    const hasEmptyRequired = questionAnswerList.some((item) => {
+      if (!item.isRequired) return false;
 
-    const requiredAnswer = {
-      name,
-      studentNumber,
-      enrollmentStatus,
-      universityYear,
-      field,
-      gender,
-      email,
-      major,
-    };
+      return item.contents.length === 0;
+    });
 
-    const getAnswerMapByContent = (
-      questionList: { content: string }[],
-      questionAnswerList: string[][]
-    ) => {
-      return questionList.reduce((acc, q, idx) => {
-        acc[q.content] = (questionAnswerList[idx] ?? []).join(", ");
-        return acc;
-      }, {} as Record<string, string>);
-    };
+    if (hasEmptyRequired) {
+      alert("필수 질문에 답변이 없습니다.");
+      return;
+    }
 
-    const mappedAnswers = JSON.stringify(
-      getAnswerMapByContent(questionList, questionAnswerList)
+    // memberProfile 매핑
+    const memberProfile: Record<string, string> = {};
+    questionList.forEach((question) => {
+      if (!question.isDeletable) {
+        const key = requiredAnswerKeyMap[question.content];
+        if (key) {
+          const answer = questionAnswerList.find(
+            (a) => a.questionId === question.questionId
+          );
+          if (answer) {
+            memberProfile[key] = answer.contents[0];
+          }
+        }
+      }
+    });
+
+    // 전체 answers 에 필요없는 key-value 쌍들 제거
+    const answers = questionAnswerList.map(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ question, isRequired, ...rest }) => rest
     );
+    const questionAndAnswerJson = JSON.stringify(questionAnswerList);
 
     questionAnswerMutation.mutate({
-      requiredAnswer,
-      answers: questionAnswerList,
-      questionAndAnswerJson: mappedAnswers,
+      memberProfile,
+      answers,
+      questionAndAnswerJson,
     });
   };
 
@@ -101,7 +101,16 @@ const Apply = () => {
             ))}
             /
           </form>
-          <button onClick={submitAnswer}>제출하기</button>
+
+          <div className="flex justify-end ">
+            <Button
+              hover={false}
+              onClick={submitAnswer}
+              title={"지원하기"}
+              width="120px"
+              bg="areaBg"
+            />
+          </div>
         </div>
       </div>
     </div>

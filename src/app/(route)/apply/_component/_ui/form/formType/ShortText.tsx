@@ -3,7 +3,7 @@ import Input from "../Input/DefaultInput";
 import { TextFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswer";
 
-const ShortText = ({ required, admin, idx }: TextFormPropsType) => {
+const ShortText = ({ admin, idx }: TextFormPropsType) => {
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
 
   return (
@@ -14,9 +14,8 @@ const ShortText = ({ required, admin, idx }: TextFormPropsType) => {
           : undefined
       }
       value={
-        !admin && idx !== undefined ? questionAnswerList[idx]?.[0] ?? "" : ""
+        !admin && idx !== undefined ? questionAnswerList[idx].contents : ""
       }
-      required={required}
       readOnly={admin}
       placeholder={"단답형 대답"}
     />

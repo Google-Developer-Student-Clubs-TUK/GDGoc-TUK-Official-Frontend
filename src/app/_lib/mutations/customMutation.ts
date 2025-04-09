@@ -23,7 +23,9 @@ export function useGenericMutation<TData, TError, TVariables>({
     }, 
     onError: (error) => {
       console.error(error);
-      alert(error.response.data.serverErrorMessage)
+      if(error.response.data.serverErrorMessage){
+        alert(error.response.data.serverErrorMessage)
+      }
       if (onErrorCb) onErrorCb(error);
     },
   });

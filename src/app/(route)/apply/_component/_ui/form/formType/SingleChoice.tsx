@@ -2,6 +2,7 @@ import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswe
 import Input from "../Input/DefaultInput";
 import { useQuestionFormStore } from "@/app/(route)/apply/_store/questionForm";
 import { ChoiceFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
+import { korToEngMap } from "@/app/(route)/apply/utils/korToEngMap";
 
 const SingleChoice = ({
   subQuestions,
@@ -9,17 +10,20 @@ const SingleChoice = ({
   deleteSubQuestion,
   admin = false,
   idx,
-  required,
 }: ChoiceFormPropsType) => {
   const { addSubQuestion, updateSubField } = useQuestionFormStore();
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
+
+  const translateIfNeeded = (question: string, value: string) => {
+    return korToEngMap[question]?.[value] ?? value;
+  };
 
   return (
     <div className="flex flex-wrap justify-between gap-4">
       {subQuestions.map((i, subIdx) => (
         <Input
           key={subIdx}
-          width="w-[270px]"
+          width="270px"
           img={admin ? "/icon/form/minus.png" : undefined}
           alt="삭제"
           imgClick={
@@ -29,14 +33,22 @@ const SingleChoice = ({
           }
           btn={
             !admin && idx !== undefined
-              ? questionAnswerList[idx]?.includes(i.subContent)
+              ? questionAnswerList[idx].contents.includes(
+                  translateIfNeeded(
+                    questionAnswerList[idx].question,
+                    i.subContent
+                  )
+                )
               : false
           }
-          required={required}
           placeholder="내용을 입력하세요."
           onClick={
             !admin && idx !== undefined
-              ? () => setAnswer(idx, i.subContent, "single")
+              ? () => {
+                  const question = questionAnswerList[idx].question;
+                  const translated = translateIfNeeded(question, i.subContent);
+                  setAnswer(idx, translated, "single");
+                }
               : undefined
           }
           onChange={(e) => updateSubField(questionId, subIdx, e.target.value)}

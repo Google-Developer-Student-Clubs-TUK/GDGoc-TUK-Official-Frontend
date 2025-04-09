@@ -1,7 +1,7 @@
 import React from "react";
-import { QuestionItemType } from "../../_type/formType";
-import { getQuestionTypeMap } from "../../utils/getQuestionTypeMap";
-import { QuestionsType } from "../../_type/questionsType";
+import { getQuestionTypeMap } from "../../../utils/getQuestionTypeMap";
+import { QuestionItemType } from "../../../_type/formType";
+import { QuestionsType } from "../../../_type/questionsType";
 
 interface AnswerFormPropsType extends QuestionItemType {
   idx: number;
@@ -40,6 +40,8 @@ const AnswerForm = ({
       <div className="mt-4">
         {questionTypeMap[questionType as QuestionsType].component}
       </div>
+
+      {/* 선택된 폼 렌더링 */}
     </div>
   );
 };

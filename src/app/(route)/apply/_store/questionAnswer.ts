@@ -1,42 +1,50 @@
 import { create } from "zustand";
+import { QuestionItemType } from "../_type/formType";
+import { AnswerItemType } from "../_type/answerType";
 
 interface QuestionAnswerStoreType {
-  questionAnswerList :string[][];
+    questionAnswerList : AnswerItemType []
     // setQuestion
     setAnswer: (idx: number, value: string, type: "single" | "multi") => void
-    resetAnswers: (questionListLength: number) => void
+    resetAnswers: (question :  QuestionItemType[])=> void
 }
 
   export const useQuestionAnswerStore= create<QuestionAnswerStoreType>((set,get) => ({
     questionAnswerList: [],
      
     // 초기화
-    resetAnswers: (questionListLength) => {
-    const emptyAnswers = Array.from({ length: questionListLength }, () => []);
-    set({ questionAnswerList: emptyAnswers });
+    resetAnswers: (question : QuestionItemType[]) => {
+      const emptyAnswers = question.map((q) => ({
+        questionId: q.questionId,
+        question :  q.content,
+        isRequired : q.isRequired,
+        contents:[]
+      }));
+      set({ questionAnswerList: emptyAnswers });
     },
 
     // 답변 설정
     setAnswer: (idx, value, type) => {
-    set((state) => {
-      const updated = [...state.questionAnswerList];
-
-      if (type === "single") {
-        updated[idx] = [value];
-      } else {
-        const existing = updated[idx];
-        if (existing.includes(value)) {
-          //  이미 있으면 제거 
-          updated[idx] = existing.filter((v) => v !== value);
+      set((state) => {
+        const updated = [...state.questionAnswerList];
+        const existingContent = updated[idx].contents;
+    
+        if (type === "single") {
+          // ✅ 단일 선택 → 값을 하나만 가진 배열로 교체
+          updated[idx].contents = [value];
         } else {
-          //  없으면 추가 
-          updated[idx] = [...existing, value];
+          // ✅ 멀티 선택 → 토글 방식
+          if (existingContent.includes(value)) {
+            updated[idx].contents = existingContent.filter((v) => v !== value);
+          } else {
+            updated[idx].contents = [...existingContent, value];
+          }
         }
-      }
-
-      return { questionAnswerList: updated };
-    });
-  },
+        return { questionAnswerList: updated };
+      });
+    },
+    
+    
 }));
 
 
