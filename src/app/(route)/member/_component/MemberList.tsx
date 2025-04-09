@@ -36,7 +36,7 @@ const MemberList = () => {
               <li
                 className={`${
                   item.generation === generation ? "bg-point" : ""
-                } hover:bg-[rgba(0,161,80,0.3)]  cursor-pointer py-3 flex justify-center `}
+                } hover:bg-hover cursor-pointer py-3 flex justify-center `}
                 onClick={() => handleGeneration(item.generation)}
                 key={item.generation}
               >
