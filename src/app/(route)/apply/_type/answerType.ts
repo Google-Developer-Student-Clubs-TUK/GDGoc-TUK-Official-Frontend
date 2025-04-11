@@ -38,6 +38,7 @@ export type  EnrollMentType =
     enrollmentStatus:  EnrollMentType
     major: string;
     universityYear: UniversityYearType
+    phoneNumber : number
   };
 
 
