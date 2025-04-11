@@ -14,7 +14,16 @@ export default {
         point : 'var(--point)',
         areaBg : 'var(--areaBg)',
         hover : 'var(--hover)',
-        placeholder : 'var(--placeholder)'
+        placeholder : 'var(--placeholder)',
+
+
+         /* grayScale */
+         gray100: 'var(—gray-100)',
+         gray200: 'var(—gray-200)',
+         gray300: 'var(—gray-300)',
+         gray400: 'var(—gray-400)',
+         gray500: 'var(—gray-500)',
+         gray600: 'var(—gray-600)',
       },
     },
   },

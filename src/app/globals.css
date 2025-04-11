@@ -11,6 +11,15 @@
   --placeholder :  #767676;
 
 
+
+ --gray-100: #F9F9F9; /* 가장 연한 회색 */
+ --gray-200: #EEEEEE;
+ --gray-300: #CCCCCC;
+ --gray-400: #767676;
+ --gray-500: #555555;
+ --gray-600: #333333; /* 가장 진한 회색 */
+
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +30,14 @@
     --areaBg: #222222;
     --hover : #036C36;
     --placeholder :  #767676;
+
+
+ --gray-100: #F9F9F9; /* 가장 연한 회색 */
+ --gray-200: #EEEEEE;
+ --gray-300: #CCCCCC;
+ --gray-400: #767676;
+ --gray-500: #555555;
+ --gray-600: #333333; /* 가장 진한 회색 */
   }
 }
 
