@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Member from "./_component/Member";
+import VolunteerList from "./_component/volunteer/VolunteerList";
 
 const MemberManage = () => {
   const [memberTab, setMemberTap] = useState<"회원" | "지원자">("회원");
@@ -24,6 +25,7 @@ const MemberManage = () => {
         ))}
       </div>
       <Member />
+      {memberTab === "지원자" && <VolunteerList />}
     </div>
   );
 };
