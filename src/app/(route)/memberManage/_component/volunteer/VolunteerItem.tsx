@@ -23,7 +23,7 @@ const VolunteerItem = ({
   occupation,
 }: VolunteerItemProps) => {
   return (
-    <div className="flex flex-col gap-6 justify-between w-[100%] 2xl:w-[24%] p-5 border border-gray500 rounded-xl  cursor-pointer hover:bg-gray700 hover:border-gray700 hover:shadow-cardItemSD duration-300">
+    <div className="flex flex-col gap-6 justify-between p-5 border border-gray500 rounded-xl  cursor-pointer hover:bg-gray700 hover:border-gray700 hover:shadow-cardItemSD duration-300">
       <div className="felx flex-col gap-1 text-white ">
         <p className="text-ttSm font-bold">{name} ({gender})</p>
         <p className="text-tSm text-gray200">{department}/{enrolled}</p>
