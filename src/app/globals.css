@@ -8,18 +8,23 @@
   --point : #00A150;
   --areaBg: #222222;
   --hover : #036C36;
-  --placeholder :  #767676;
+  --placeholder :#767676;
 
+  /* grayscale */
+  --gray-700: #222222; /* 텍스트 */
+  --gray-600: #2e2e2e; /* 기본 배경색 */
+  --gray-500: #444444;
+  --gray-400: #555555;
+  --gray-300: #767676;
+  --gray-200: #CCCCCC;
 
+  /* text */
+  --title-lg:28px;
+  --title-md:20px;
+  --title-sm:18px;
 
- --gray-100: #F9F9F9; /* 가장 연한 회색 */
- --gray-200: #EEEEEE;
- --gray-300: #CCCCCC;
- --gray-400: #767676;
- --gray-500: #555555;
- --gray-600: #333333; /* 가장 진한 회색 */
-
-
+  --text-md: 16px;
+  --text-sm: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,14 +35,6 @@
     --areaBg: #222222;
     --hover : #036C36;
     --placeholder :  #767676;
-
-
- --gray-100: #F9F9F9; /* 가장 연한 회색 */
- --gray-200: #EEEEEE;
- --gray-300: #CCCCCC;
- --gray-400: #767676;
- --gray-500: #555555;
- --gray-600: #333333; /* 가장 진한 회색 */
   }
 }
 
@@ -50,16 +47,16 @@
 
 html {
   margin: 0 auto;
-  font-weight: 500;
-  line-height: 160%; /* 22.4px */
-  letter-spacing: -0.35px;
-  
 }
 
 
 body {
   background: var(--bg);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Noto Sans KR", Arial, Helvetica, sans-serif;
+
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
 }
 
 
