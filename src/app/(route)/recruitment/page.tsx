@@ -43,9 +43,9 @@ const Recruitment = () => {
         <div className="z-10 relative overflow-hidden">
           <div className="absolute inset-0 bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
 
-          <div className="relative z-10 flex gap-2 text-white px-2 py-1">
+          <div className="relative z-10 flex items-center gap-2 text-white px-2 py-1">
             <p className="text-ttMd font-bold">지원하기</p>
-            <Image src="/icon/slideup_arrow_top.png" alt="화살표" width={20} height={20} className="object-contain rotate-90"/>
+            <Image src="/icon/slideup_arrow.svg" alt="화살표" width={20} height={20} className="object-contain rotate-90 h-fit"/>
           </div>
         </div>
       </div>
