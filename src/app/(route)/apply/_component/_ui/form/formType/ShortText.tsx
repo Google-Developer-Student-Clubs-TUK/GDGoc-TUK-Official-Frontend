@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "../Input/DefaultInput";
+import Input from "../../ApplyInput";
 import { TextFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswer";
 

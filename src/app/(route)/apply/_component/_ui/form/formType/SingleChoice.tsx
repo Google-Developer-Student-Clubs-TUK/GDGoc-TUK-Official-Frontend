@@ -1,8 +1,8 @@
 import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswer";
-import Input from "../Input/DefaultInput";
+import Input from "../../ApplyInput";
 import { useQuestionFormStore } from "@/app/(route)/apply/_store/questionForm";
 import { ChoiceFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
-import { korToEngMap } from "@/app/(route)/apply/utils/korToEngMap";
+import { getValueFromLabel } from "@/app/(route)/apply/utils/korToEngMap";
 
 const SingleChoice = ({
   subQuestions,
@@ -13,10 +13,6 @@ const SingleChoice = ({
 }: ChoiceFormPropsType) => {
   const { addSubQuestion, updateSubField } = useQuestionFormStore();
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
-
-  const translateIfNeeded = (question: string, value: string) => {
-    return korToEngMap[question]?.[value] ?? value;
-  };
 
   return (
     <div className="flex flex-wrap justify-between gap-4">
@@ -34,7 +30,7 @@ const SingleChoice = ({
           btn={
             !admin && idx !== undefined
               ? questionAnswerList[idx].contents.includes(
-                  translateIfNeeded(
+                  getValueFromLabel(
                     questionAnswerList[idx].question,
                     i.subContent
                   )
@@ -46,7 +42,7 @@ const SingleChoice = ({
             !admin && idx !== undefined
               ? () => {
                   const question = questionAnswerList[idx].question;
-                  const translated = translateIfNeeded(question, i.subContent);
+                  const translated = getValueFromLabel(question, i.subContent);
                   setAnswer(idx, translated, "single");
                 }
               : undefined

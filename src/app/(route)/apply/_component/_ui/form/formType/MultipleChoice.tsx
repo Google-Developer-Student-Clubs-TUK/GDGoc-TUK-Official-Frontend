@@ -1,5 +1,5 @@
 import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswer";
-import Input from "../Input/DefaultInput";
+import Input from "../../ApplyInput";
 import { useQuestionFormStore } from "@/app/(route)/apply/_store/questionForm";
 import { ChoiceFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "../Input/DefaultInput";
+import Input from "../../ApplyInput";
 import { useQuestionAnswerStore } from "../../../../_store/questionAnswer";
 import { TextFormPropsType } from "../../../../_type/formPropsType";
 import Button from "@/app/_components/_ui/Button";
