@@ -1,10 +1,20 @@
+'use client'
+
 // 지원 가능 기간 콘텐츠
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
+import SetPeriodModal from "./SetPeriodModal";
+
 const SetPeriod = () => {
+  const [isModal, setIsModal] = useState(false);
+
+  const openModal = () => {
+    setIsModal(!isModal);
+  }
+
   return (
-    <div className="relative w-1/2 flex flex-col justify-center items-center bg-[url('/image/recruitment-bg.png')] bg-cover bg-center group">
+    <div className="relative w-1/2 flex flex-col justify-center items-center bg-[url('/image/recruitment-bg.png')] bg-cover bg-center group" onClick={openModal}>
       <div id="overlay" className="absolute z-0 top-0 left-0 h-full w-full bg-gradient-to-r from-[#2E2E2E] to-[#2E2E2E50] cursor-pointer"></div>
 
       <div className="z-10 relative overflow-hidden cursor-pointer">
@@ -15,6 +25,12 @@ const SetPeriod = () => {
           <Image src="/icon/slideup_arrow.svg" alt="화살표" width={20} height={20} className="object-contain rotate-90 h-fit" />
         </div>
       </div>
+
+      {isModal && (
+        <SetPeriodModal
+          onClose={openModal}
+        />
+      )}
     </div>
   );
 };

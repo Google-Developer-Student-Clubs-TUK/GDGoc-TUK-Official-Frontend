@@ -7,7 +7,7 @@ import SetPeriod from "./components/SetPeriod";
 const Recruitment = () => {
 
   const isAvailable = true; // 지원 가능 여부.
-  const userRole = false;
+  const userRole = true; // true = 리드
 
   return (
     <div className="flex pl-[100px] h-screen">
