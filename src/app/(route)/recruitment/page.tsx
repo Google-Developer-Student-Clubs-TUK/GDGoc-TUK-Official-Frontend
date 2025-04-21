@@ -2,10 +2,12 @@ import React from "react";
 
 import AvailableApply from "./components/AvailableApply";
 import UnAvailableApply from "./components/UnAvailableApply";
+import SetPeriod from "./components/SetPeriod";
 
 const Recruitment = () => {
 
   const isAvailable = true; // 지원 가능 여부.
+  const userRole = false;
 
   return (
     <div className="flex pl-[100px] h-screen">
@@ -41,7 +43,7 @@ const Recruitment = () => {
       </div>
 
       {/* Right */}
-      {isAvailable ? <AvailableApply /> : <UnAvailableApply />}
+      {userRole ? <SetPeriod /> : isAvailable ? <AvailableApply /> : <UnAvailableApply />}
 
     </div>
   );
