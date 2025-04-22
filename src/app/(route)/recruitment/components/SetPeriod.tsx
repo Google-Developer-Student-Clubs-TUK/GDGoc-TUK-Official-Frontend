@@ -10,7 +10,12 @@ const SetPeriod = () => {
   const [isModal, setIsModal] = useState(false);
 
   const openModal = () => {
-    setIsModal(!isModal);
+    setIsModal(true);
+    console.log("모달 열림")
+  }
+  const closeModal = () => {
+    setIsModal(false);
+    console.log("모달 닫힘")
   }
 
   return (
@@ -28,7 +33,7 @@ const SetPeriod = () => {
 
       {isModal && (
         <SetPeriodModal
-          onClose={openModal}
+          onClose={closeModal}
         />
       )}
     </div>
