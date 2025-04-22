@@ -11,11 +11,9 @@ const SetPeriod = () => {
 
   const openModal = () => {
     setIsModal(true);
-    console.log("모달 열림")
   }
   const closeModal = () => {
     setIsModal(false);
-    console.log("모달 닫힘")
   }
 
   return (
