@@ -45,6 +45,7 @@ const MultipleChoice = ({
       ))}
       {admin && (
         <Input
+          width="270px"
           btn={true}
           multiImg="/icon/form/uncheck.png"
           img="/icon/plus.png"

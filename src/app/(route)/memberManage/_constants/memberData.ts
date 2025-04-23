@@ -26,7 +26,6 @@ export const columnKeys: (keyof MemberInfoType | "id")[] = [
   "universityYear",
   "generation",
   "role",
-
 ];
 
 

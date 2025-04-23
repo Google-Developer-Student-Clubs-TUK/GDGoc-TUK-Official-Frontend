@@ -53,11 +53,11 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
 
   return (
     <div className="gap-3 flex w-full flex-col">
-      <div className="w-full gap-5 flex ">
+      <div className="w-full flex justify-between">
         <Input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          width="calc(100% - 130px)"
+          width="410px"
           placeholder={"이메일을 입력해주세요"}
           readOnly={sendCode}
         />
@@ -65,7 +65,6 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
           disabled={sendCode}
           onClick={onSendEmailCode}
           bg="bg"
-          width="120px"
           title={sendEmail ? "재전송" : "인증번호 발송"}
         />
       </div>
@@ -74,7 +73,7 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
         <Input
           onChange={(e) => setCode(e.target.value)}
           value={code}
-          width="421px"
+          width="410px"
           bg={sendCode ? "point" : "bg"}
           readOnly={!sendEmail || sendCode}
           placeholder={"인증번호"}

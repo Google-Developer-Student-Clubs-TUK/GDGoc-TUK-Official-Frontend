@@ -57,7 +57,7 @@ export const requiredAnswerKeyMap: Record<string, keyof MemberProfileType> = {
   "학교 이메일": "email",
   직군: "field",
   성별: "gender",
-  // "오거나이저/멤버":
+  "구분":"role",
   연락처: "phoneNumber",
   "학적 상태":"enrollmentStatus",
   학과: "major",

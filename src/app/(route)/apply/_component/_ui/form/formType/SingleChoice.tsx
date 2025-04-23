@@ -54,7 +54,7 @@ const SingleChoice = ({
       ))}
       {admin && (
         <Input
-          width="w-[270px]"
+          width="270px"
           btn={true}
           img="/icon/plus.png"
           alt="추가"

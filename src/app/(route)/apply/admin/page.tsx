@@ -83,7 +83,7 @@ const ApplyAdmin = () => {
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">
           <Confirm />
-          <form className="grid gap-[60px] mt-1 ">
+          <form className="grid gap-[60px] mt-1">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter} // 충돌 감지 알고리즘
@@ -130,12 +130,13 @@ const ApplyAdmin = () => {
                 ) : null}
               </DragOverlay>
             </DndContext>
-            <Button
-              title={"질문 추가"}
-              width="100%"
-              plus={true}
+            <button
+              type="button"
+              className="w-full bg-point  items-center justify-center rounded-xl px-6 py-3 hover:bg-hover font-bold text-white text-base"
               onClick={addNewQuestion}
-            />
+            >
+              {`질문 추가`}&nbsp; &nbsp;+
+            </button>
             <div className="flex justify-end ">
               <Button
                 onClick={submitQuestions}
