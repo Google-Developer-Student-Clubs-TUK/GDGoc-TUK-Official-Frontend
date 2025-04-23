@@ -8,7 +8,7 @@ export const getLabelFromValue = (field: string, value: string): string => {
   const map = valueLabelMap[field];
   if (!map) return value;
 
-  const found = Object.entries(map).find(([label, val]) => val === value);
+  const found = Object.entries(map).find(([, val]) => val === value);
   return found?.[0] ?? value;
 };
 

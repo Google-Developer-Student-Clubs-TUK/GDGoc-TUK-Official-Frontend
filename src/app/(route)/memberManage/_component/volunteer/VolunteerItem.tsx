@@ -4,39 +4,41 @@ import Image from "next/image";
 
 import Classification from "./ui/Classification";
 import Occupation from "./ui/Occupation";
-
-interface VolunteerItemProps {
-  name: string;
-  gender: "남" | "여";
-  department: string;
-  enrolled: "재학" | "휴학";
-  classification: "오거나이저" | "일반멤버";
-  occupation: string;
-}
+import { VolunteerItemType } from "./_type/volunteer";
+import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
 
 const VolunteerItem = ({
-  name,
+  enrollmentStatus,
+  field,
   gender,
-  department,
-  enrolled,
-  classification,
-  occupation,
-}: VolunteerItemProps) => {
+  major,
+  name,
+  role,
+}: VolunteerItemType) => {
   return (
     <div className="flex flex-col gap-6 justify-between p-5 border border-gray500 rounded-xl  cursor-pointer hover:bg-gray700 hover:border-gray700 hover:shadow-cardItemSD duration-300">
       <div className="felx flex-col gap-1 text-white ">
-        <p className="text-ttSm font-bold">{name} ({gender})</p>
-        <p className="text-tSm text-gray200">{department}/{enrolled}</p>
+        <p className="text-ttSm font-bold">
+          {name} ({getLabelFromValue("성별", gender)})
+        </p>
+        <p className="text-tSm text-gray200">
+          {major}/{getLabelFromValue("상태", enrollmentStatus)}
+        </p>
       </div>
 
       <div className="flex justify-between items-end text-white">
         <div className="flex gap-2 items-center cursor-default">
-          <Classification classification={classification} />
-          <Occupation occupation={occupation} />
+          <Classification classification={role} />
+          <Occupation occupation={getLabelFromValue("직군", field)} />
         </div>
         <div className="flex gap-1 items-center">
           <p className="text-tSm pt-[2px]">자세히 보기</p>
-          <Image src="/icon/detail_arrow.svg" width={16} height={16} alt="화살표" />
+          <Image
+            src="/icon/detail_arrow.svg"
+            width={16}
+            height={16}
+            alt="화살표"
+          />
         </div>
       </div>
     </div>

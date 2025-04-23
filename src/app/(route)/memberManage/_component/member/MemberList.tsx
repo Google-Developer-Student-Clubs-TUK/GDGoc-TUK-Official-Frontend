@@ -25,6 +25,7 @@ const MemberList = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [isEditing, setIsEditing] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
+
   const [openModal, setOpenModal] = useState<FilterTitle | null>(null);
 
   const { filters, setFilter, memberList, setMemberList } =

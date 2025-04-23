@@ -1,6 +1,6 @@
 import { baseAPI } from "@/app/_lib/customApi";
 
-// memberManageListApi.ts
+
 export const memberManageListApi = async ({
   page,
   size,
@@ -26,4 +26,32 @@ export const memberManageListApi = async ({
   if (name) params.name = name;
 
   return await baseAPI.get("/generation-members/management", { params });
+};
+
+
+
+
+export const applicantsApi = async ({
+  page,
+  size,
+}: {
+  page: number;
+  size: number;
+}) => {
+  return await baseAPI.get("/applicants", { params : {
+    page: page,
+    size: size
+  } });
+};
+
+
+
+export const applicantAnswerApi = async ({
+  applicantId
+}: {
+  applicantId: number
+}) => {
+  return await baseAPI.get(`/answers/applicants/${applicantId}`, { params : {
+   applicantId :   applicantId
+  } });
 };

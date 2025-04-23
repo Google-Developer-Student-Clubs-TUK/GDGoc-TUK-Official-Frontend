@@ -9,7 +9,7 @@ export const getSelectedLabel = (
     generation?: string;
   }
 ) => {
-  if (!filters) return "전체"; // ✅ undefined 방어
+  if (!filters) return "전체"; //  undefined 방어
 
   const filterValue =
     title === "직군"
