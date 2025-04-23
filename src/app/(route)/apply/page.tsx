@@ -104,7 +104,6 @@ const Apply = () => {
 
           <div className="flex justify-end ">
             <Button
-              hover={false}
               onClick={submitAnswer}
               title={"지원하기"}
               width="120px"

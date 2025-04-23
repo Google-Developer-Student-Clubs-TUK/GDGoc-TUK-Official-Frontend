@@ -12,6 +12,7 @@ import { VolunteerItemType } from "./_type/volunteer";
 import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
 import VolunteerButton from "./ui/VolunteerButton";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
+import Button from "@/app/_components/_ui/Button";
 
 interface Props {
   volunteer: VolunteerItemType;
@@ -105,26 +106,29 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
         </div>
         <div className="w-full h-[1px] bg-gray500" />
 
-        <div className="flex justify-between">
-          <VolunteerButton onClick={onClose} title="닫기" />
+        <div className="flex justify-between mt-6">
+          <Button onClick={onClose} title={"닫기"} bg="gray600" />
           <div className="flex gap-5">
-            <VolunteerButton
+            <Button
               onClick={() =>
                 setApplicantPass({
                   applicantId: volunteer.applicantId,
                   pass: false,
                 })
               }
-              title="불합격"
+              title={"불합격"}
+              bg="gray600"
             />
-            <VolunteerButton
+
+            <Button
               onClick={() =>
                 setApplicantPass({
                   applicantId: volunteer.applicantId,
                   pass: true,
                 })
               }
-              title="합격"
+              title={"합격"}
+              bg="gray600"
             />
           </div>
         </div>

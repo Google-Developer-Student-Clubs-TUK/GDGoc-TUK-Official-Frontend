@@ -130,10 +130,14 @@ const ApplyAdmin = () => {
                 ) : null}
               </DragOverlay>
             </DndContext>
-            <Button title={"질문 추가"} plus={true} onClick={addNewQuestion} />
+            <Button
+              title={"질문 추가"}
+              width="100%"
+              plus={true}
+              onClick={addNewQuestion}
+            />
             <div className="flex justify-end ">
               <Button
-                hover={false}
                 onClick={submitQuestions}
                 title={"저장하기"}
                 width="120px"
