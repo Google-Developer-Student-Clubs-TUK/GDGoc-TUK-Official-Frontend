@@ -18,6 +18,11 @@ export type  EnrollMentType =
   | "MAN"
 
 
+  export type RoleType =
+  | "ROLE_MEMBER"
+  | "ROLE_ORGANIZER"
+  | "ROLE_LEADER"
+
 
 
   export interface AnswerItemType {
