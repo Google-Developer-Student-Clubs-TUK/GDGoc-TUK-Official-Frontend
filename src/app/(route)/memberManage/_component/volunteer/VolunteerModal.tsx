@@ -81,7 +81,7 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
             <Occupation occupation={volunteer.field} />
           </div>
           <div className="felx flex-col gap-1 text-white">
-            <p className="text-ttSm font-bold">
+            <p className="text-ttMd font-bold">
               {volunteer.name} ({getLabelFromValue("성별", volunteer.gender)})
             </p>
             <p className="text-tSm text-gray200">
