@@ -55,3 +55,16 @@ export const applicantAnswerApi = async ({
    applicantId :   applicantId
   } });
 };
+
+
+
+export const applicantPassApi = async (applicantId: number) => {
+  return await baseAPI.post(`/applicants/${applicantId}`, {
+    role: "ROLE_MEMBER",
+  });
+};
+
+
+export const applicantRejectApi = async (applicantId: number) => {
+  return await baseAPI.patch(`/applicants/${applicantId}`);
+};

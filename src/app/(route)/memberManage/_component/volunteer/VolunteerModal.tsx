@@ -2,10 +2,16 @@
 import React, { useEffect, useState } from "react";
 import Occupation from "./ui/Occupation";
 import Classification from "./ui/Classification";
-import { applicantAnswerApi } from "../../_api";
+import {
+  applicantAnswerApi,
+  applicantPassApi,
+  applicantRejectApi,
+} from "../../_api";
 import { useQuery } from "@tanstack/react-query";
 import { VolunteerItemType } from "./_type/volunteer";
 import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
+import VolunteerButton from "./ui/VolunteerButton";
+import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 
 interface Props {
   volunteer: VolunteerItemType;
@@ -26,6 +32,44 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
       setAnswer(JSON.parse(answerData));
     }
   }, [data]);
+
+  // 성공시 알람
+  const applicantPassSuccess = () => {
+    alert("합격 처리 되었습니다");
+    onClose();
+  };
+
+  const applicantRejectSuccess = () => {
+    alert("불합격 처리 되었습니다");
+    onClose();
+  };
+
+  // 합격 mutation
+  const { mutation: passMutation } = useGenericMutation({
+    mutationFn: applicantPassApi,
+    onSuccessCb: applicantPassSuccess,
+  });
+
+  // 불합격 mutation
+  const { mutation: rejectMutation } = useGenericMutation({
+    mutationFn: applicantRejectApi,
+    onSuccessCb: applicantRejectSuccess,
+  });
+
+  // 합격/불합격 처리 함수
+  const setApplicantPass = ({
+    applicantId,
+    pass,
+  }: {
+    applicantId: number;
+    pass: boolean;
+  }) => {
+    if (pass) {
+      passMutation.mutate(applicantId);
+    } else {
+      rejectMutation.mutate(applicantId);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
@@ -59,13 +103,30 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
               ))}
           </div>
         </div>
+        <div className="w-full h-[1px] bg-gray500" />
 
-        {/* 추후 버튼 컴포넌트로 변경 필요*/}
-        <div
-          className="px-6 py-3 rounded-xl border border-gray500 w-fit cursor-pointer font-bold text-tMd mt-6 hover:bg-gray500 duration-300"
-          onClick={onClose}
-        >
-          닫기
+        <div className="flex justify-between">
+          <VolunteerButton onClick={onClose} title="닫기" />
+          <div className="flex gap-5">
+            <VolunteerButton
+              onClick={() =>
+                setApplicantPass({
+                  applicantId: volunteer.applicantId,
+                  pass: false,
+                })
+              }
+              title="불합격"
+            />
+            <VolunteerButton
+              onClick={() =>
+                setApplicantPass({
+                  applicantId: volunteer.applicantId,
+                  pass: true,
+                })
+              }
+              title="합격"
+            />
+          </div>
         </div>
       </div>
     </div>
