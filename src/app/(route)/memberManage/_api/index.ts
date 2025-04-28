@@ -1,29 +1,19 @@
 import { baseAPI } from "@/app/_lib/customApi";
-
+import { FiltersType } from "../_type";
 
 export const memberManageListApi = async ({
   page,
   size,
-  field,
-  enrollmentStatus,
-  generation,
-  name,
+  ...filters
 }: {
   page: number;
   size: number;
-  field?: string;
-  enrollmentStatus?: string;
-  generation?: string;
-  name?: string;
-}) => {
+} & FiltersType) => {
   const params: Record<string, unknown> = {
     page,
     size,
+    ...filters,
   };
-  if (field) params.field = field;
-  if (enrollmentStatus) params.enrollmentStatus = enrollmentStatus;
-  if (generation) params.generation = generation;
-  if (name) params.name = name;
 
   return await baseAPI.get("/generation-members/management", { params });
 };

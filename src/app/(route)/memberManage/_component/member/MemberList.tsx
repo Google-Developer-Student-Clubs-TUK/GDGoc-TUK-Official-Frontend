@@ -5,46 +5,29 @@ import { memberManageListApi } from "../../_api";
 import Pagination from "../Pagination";
 import Image from "next/image";
 import { columnKeys, columnTitles } from "../../_constants/memberData";
-import {
-  getLabelFromValue,
-  valueLabelMap,
-} from "@/app/(route)/apply/utils/korToEngMap";
+import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
 import DropDown from "./DropDown";
-import { getSelectedLabel } from "../../_utils/memberFilter";
+import {
+  FILTER_KEYS,
+  filterOptions,
+  getSelectedLabel,
+  handleFilterSelect,
+} from "../../_utils/memberFilter";
 import { useMemberListStore } from "../../_store/memberList";
 import { FilterTitle } from "../../_type";
-
-const FILTER_KEYS: FilterTitle[] = ["직군", "학적 상태", "활동년도"];
-
-const filterOptions: Record<FilterTitle, string[]> = Object.fromEntries(
-  FILTER_KEYS.map((key) => [key, Object.keys(valueLabelMap[key])])
-) as Record<FilterTitle, string[]>;
 
 const MemberList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [isEditing, setIsEditing] = useState(false);
-  const [selected, setSelected] = useState<number | null>(null);
-
+  const [selected, setSelected] = useState<number[]>([]);
   const [openModal, setOpenModal] = useState<FilterTitle | null>(null);
 
   const { filters, setFilter, memberList, setMemberList } =
     useMemberListStore();
 
-  const handleFilterSelect = (type: FilterTitle, label: string) => {
-    const value = valueLabelMap[type][label];
-    const keyMap: Record<FilterTitle, keyof typeof filters> = {
-      직군: "field",
-      "학적 상태": "enrollmentStatus",
-      활동년도: "generation",
-    };
-    setFilter(keyMap[type], value);
-    setOpenModal(null);
-  };
-
   const { isLoading, data } = useQuery({
     queryKey: ["memberManageList", currentPage, filters],
-
     queryFn: () =>
       memberManageListApi({
         page: currentPage - 1,
@@ -64,6 +47,14 @@ const MemberList = () => {
       setMemberList(data.data.memberManagementResponses);
     }
   }, [data]);
+
+  const toggleSelect = (idx: number) => {
+    if (selected.includes(idx)) {
+      setSelected(selected.filter((i) => i !== idx));
+    } else {
+      setSelected([...selected, idx]);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -97,7 +88,7 @@ const MemberList = () => {
                 className="py-3 px-4 flex items-center hover:bg-gray700 rounded-l-xl"
                 onClick={() => {
                   setIsEditing(false);
-                  setSelected(null);
+                  setSelected([]);
                 }}
               >
                 <p className="text-base font-bold text-white">취소하기</p>
@@ -150,9 +141,14 @@ const MemberList = () => {
                         {openModal === title && (
                           <DropDown
                             list={filterOptions[title as FilterTitle]}
-                            onClick={(label: string) =>
-                              handleFilterSelect(title as FilterTitle, label)
-                            }
+                            onClick={(label: string) => {
+                              setOpenModal(null);
+                              handleFilterSelect(
+                                title as FilterTitle,
+                                label,
+                                setFilter
+                              );
+                            }}
                           />
                         )}
                         <p
@@ -180,14 +176,14 @@ const MemberList = () => {
 
           <tbody className="divide-y divide-gray600">
             {memberList.map((member, idx) => {
-              const isSelected = selected === idx;
-              const isDimmed = selected !== null && selected !== idx;
+              const isSelected = selected.includes(idx);
+              const isDimmed = selected.length > 0 && !isSelected;
 
               return (
                 <tr
                   key={idx}
                   onClick={() => {
-                    if (isEditing) setSelected(isSelected ? null : idx);
+                    if (isEditing) toggleSelect(idx);
                   }}
                   className={`transition-colors cursor-pointer ${
                     isSelected
@@ -220,7 +216,7 @@ const MemberList = () => {
                     >
                       {key === "id"
                         ? (currentPage - 1) * 4 + idx + 1
-                        : getLabelFromValue(columnTitles[i], member[key])}
+                        : getLabelFromValue(columnTitles[i], member[key] || "")}
                     </td>
                   ))}
                 </tr>

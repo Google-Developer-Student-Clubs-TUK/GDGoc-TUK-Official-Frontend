@@ -45,6 +45,7 @@ export type  EnrollMentType =
     role :  RoleType;
     universityYear: UniversityYearType
     phoneNumber : number
+    generation?: string
   };
 
 

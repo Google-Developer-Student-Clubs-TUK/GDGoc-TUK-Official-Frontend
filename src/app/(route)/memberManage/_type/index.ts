@@ -14,6 +14,13 @@ export interface  MemberInfoType  {
   role: RoleType
 };
 
+export type FiltersType = {
+  name?: string;
+  field?: string;
+  enrollmentStatus?: string;
+  generation?: string;
+};
+
 
 
 export type FilterTitle = "직군" | "학적 상태" | "활동년도";
