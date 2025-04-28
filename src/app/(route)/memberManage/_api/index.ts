@@ -1,5 +1,6 @@
 import { baseAPI } from "@/app/_lib/customApi";
 import { FiltersType } from "../_type";
+import { RoleType } from "../../apply/_type/answerType";
 
 export const memberManageListApi = async ({
   page,
@@ -48,9 +49,13 @@ export const applicantAnswerApi = async ({
 
 
 
-export const applicantPassApi = async (applicantId: number ) => {
+export const applicantPassApi = async ({applicantId, role }:{applicantId: number , role : RoleType | null } ) => {
+
+  const finalRole: RoleType = role ?? "ROLE_MEMBER"; 
+
   return await baseAPI.post(`/applicants/${applicantId}`, {
-    role: "ROLE_MEMBER",
+    
+    finalRole
   });
 };
 

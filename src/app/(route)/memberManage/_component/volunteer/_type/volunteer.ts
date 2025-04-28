@@ -1,4 +1,4 @@
-import { EnrollMentType, FieldType, GenderType } from "@/app/(route)/apply/_type/answerType"
+import { EnrollMentType, FieldType, GenderType, RoleType } from "@/app/(route)/apply/_type/answerType"
 
 export interface VolunteerItemType {
   applicantId : number
@@ -7,5 +7,5 @@ export interface VolunteerItemType {
   gender : GenderType
   major : string
   name : string
-  role : null
+  role : RoleType
 }

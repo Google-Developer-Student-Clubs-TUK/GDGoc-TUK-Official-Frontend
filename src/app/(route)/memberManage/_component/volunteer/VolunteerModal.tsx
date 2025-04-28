@@ -36,12 +36,12 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
   // 성공시 알람
   const applicantPassSuccess = () => {
     alert("합격 처리 되었습니다");
-    onClose();
+    window.location.reload();
   };
 
   const applicantRejectSuccess = () => {
     alert("불합격 처리 되었습니다");
-    onClose();
+    window.location.reload();
   };
 
   // 합격 mutation
@@ -65,7 +65,7 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
     pass: boolean;
   }) => {
     if (pass) {
-      passMutation.mutate(applicantId);
+      passMutation.mutate({ applicantId, role: volunteer.role });
     } else {
       rejectMutation.mutate(applicantId);
     }

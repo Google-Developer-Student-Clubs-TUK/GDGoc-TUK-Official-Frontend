@@ -4,7 +4,7 @@ import VolunteerList from "./_component/volunteer/VolunteerList";
 import MemberList from "./_component/member/MemberList";
 
 const MemberManage = () => {
-  const [memberTab, setMemberTap] = useState<"회원" | "지원자">("회원");
+  const [memberTab, setMemberTap] = useState<"회원" | "지원자">("지원자");
 
   return (
     <div className="py-[200px] px-[100px] flex flex-col">

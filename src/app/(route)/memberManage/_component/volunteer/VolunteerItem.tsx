@@ -22,7 +22,7 @@ const VolunteerItem = ({
           {name} ({getLabelFromValue("성별", gender)})
         </p>
         <p className="text-tSm text-gray200">
-          {major}/{getLabelFromValue("상태", enrollmentStatus)}
+          {major}/{getLabelFromValue("학적 상태", enrollmentStatus)}
         </p>
       </div>
 
