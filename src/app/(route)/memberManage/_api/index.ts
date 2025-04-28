@@ -51,10 +51,10 @@ export const applicantAnswerApi = async ({
 
 export const applicantPassApi = async ({applicantId, role }:{applicantId: number , role : RoleType | null } ) => {
 
+  /* 추후 제거 */
   const finalRole: RoleType = role ?? "ROLE_MEMBER"; 
 
   return await baseAPI.post(`/applicants/${applicantId}`, {
-    
     finalRole
   });
 };
