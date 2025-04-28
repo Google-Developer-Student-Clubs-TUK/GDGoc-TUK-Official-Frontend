@@ -9,12 +9,13 @@ import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
 import DropDown from "./DropDown";
 import {
   FILTER_KEYS,
-  filterOptions,
+  getFilterOptions,
   getSelectedLabel,
   handleFilterSelect,
 } from "../../_utils/memberFilter";
 import { useMemberListStore } from "../../_store/memberList";
 import { FilterTitle } from "../../_type";
+import { useGenerationStore } from "../../_store/generations";
 
 const MemberList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,6 +23,10 @@ const MemberList = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selected, setSelected] = useState<number[]>([]);
   const [openModal, setOpenModal] = useState<FilterTitle | null>(null);
+
+  // 전체 기수 가져옴
+  const { generations } = useGenerationStore();
+  const filterOptions = getFilterOptions(generations);
 
   const { filters, setFilter, memberList, setMemberList } =
     useMemberListStore();

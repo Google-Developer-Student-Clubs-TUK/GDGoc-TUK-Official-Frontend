@@ -1,10 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import VolunteerList from "./_component/volunteer/VolunteerList";
 import MemberList from "./_component/member/MemberList";
+import { useQuery } from "@tanstack/react-query";
+import { generationsApi } from "../member/_api";
+import { useGenerationStore } from "./_store/generations";
 
 const MemberManage = () => {
   const [memberTab, setMemberTap] = useState<"회원" | "지원자">("지원자");
+
+  const { setGeneration } = useGenerationStore();
+  // api
+  const { data } = useQuery({
+    queryKey: ["generations"],
+    queryFn: () => generationsApi(),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setGeneration(data.data.generations);
+    }
+  }, [data]);
 
   return (
     <div className="py-[200px] px-[100px] flex flex-col">
