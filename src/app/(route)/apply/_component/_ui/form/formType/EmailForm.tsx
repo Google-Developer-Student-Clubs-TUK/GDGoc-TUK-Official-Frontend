@@ -6,7 +6,7 @@ import Button from "@/app/_components/_ui/Button";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import { emailApi, emailCodeApi } from "../../../../_api";
 
-const EmailForm = ({ idx }: TextFormPropsType) => {
+const EmailForm = ({ questionId }: TextFormPropsType) => {
   // 이메일인 것이 비어있으면 지원서 제출이 안되게
 
   const { setAnswer } = useQuestionAnswerStore();
@@ -19,7 +19,7 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
   const emailConFirmSuccess = () => {
     setSendCode(true);
     alert("인증이 완료되었습니다");
-    setAnswer(idx, email, "single");
+    setAnswer(questionId, email, "single");
   };
 
   const emailError = (res) => {
@@ -44,6 +44,9 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
   };
 
   const onSendEmailCode = () => {
+    // 이메일 api 잘되면 제거
+    setAnswer(questionId, email, "single");
+
     alert("인증코드가 전송되었습니다");
     if (!sendEmail) setSendEmail(true);
     emailMutation.mutate({

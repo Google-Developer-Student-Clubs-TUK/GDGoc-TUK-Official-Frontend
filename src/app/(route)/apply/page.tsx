@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { questionAnswerApi, questionListApi } from "./_api";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuestionFormStore } from "./_store/questionForm";
 import Header from "@/app/_components/_layout/Header";
 import Confirm from "./_component/Confirm";
@@ -11,13 +11,26 @@ import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import AnswerForm from "./_component/_ui/form/AnswerForm";
 import { requiredAnswerKeyMap } from "./utils/korToEngMap";
 import Button from "@/app/_components/_ui/Button";
+import ProgressBar from "./_component/_ui/ProgressBar";
 
 const Apply = () => {
-  const { setQuestion, questionList } = useQuestionFormStore();
+  const {
+    setQuestion,
+    goToPrevPage,
+    goToNextPage,
+    setLastPage,
+    questionList,
+    lastPage,
+    currentPage,
+  } = useQuestionFormStore();
   const { resetAnswers, questionAnswerList } = useQuestionAnswerStore();
 
+  const currentPageQuestionList = useMemo(() => {
+    return questionList.filter((q) => q.page === currentPage);
+  }, [questionList, currentPage]);
+
   // 질문 get
-  const { isLoading, data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ["questionList"],
     queryFn: () => questionListApi(),
   });
@@ -25,9 +38,11 @@ const Apply = () => {
   // 질문 가져온 data 저장
   useEffect(() => {
     if (data) {
-      const newData = data.data.questionResponses;
-      setQuestion(newData);
-      resetAnswers(newData);
+      console.log(data);
+      const newData = data.data;
+      setQuestion(newData.questionResponses);
+      setLastPage(newData.lastPage);
+      resetAnswers(newData.questionResponses);
     }
   }, [data]);
 
@@ -72,6 +87,11 @@ const Apply = () => {
     );
     const questionAndAnswerJson = JSON.stringify(questionAnswerList);
 
+    console.log({
+      memberProfile,
+      answers,
+      questionAndAnswerJson,
+    });
     questionAnswerMutation.mutate({
       memberProfile,
       answers,
@@ -85,10 +105,11 @@ const Apply = () => {
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">
           <Confirm />
+          <ProgressBar currentPage={currentPage} totalPage={lastPage} />
           <form className="grid gap-[60px] mt-12">
-            {questionList.map((i, idx) => (
+            {currentPageQuestionList.map((i) => (
               <AnswerForm
-                idx={idx}
+                page={i.page}
                 key={i.questionId}
                 order={i.order}
                 questionId={i.questionId}
@@ -102,13 +123,25 @@ const Apply = () => {
             /
           </form>
 
-          <div className="flex justify-end ">
-            <Button
-              onClick={submitAnswer}
-              title={"지원하기"}
-              width="120px"
-              bg="areaBg"
-            />
+          <div className="flex justify-between ">
+            <div>
+              {currentPage !== 0 && (
+                <Button
+                  onClick={goToPrevPage}
+                  title={"이전"}
+                  bg="gray600"
+                  border={true}
+                />
+              )}
+            </div>
+
+            <div className="flex gap-4">
+              {currentPage === lastPage ? (
+                <Button onClick={submitAnswer} title={"지원하기"} bg="areaBg" />
+              ) : (
+                <Button onClick={goToNextPage} title={"다음"} bg="areaBg" />
+              )}
+            </div>
           </div>
         </div>
       </div>

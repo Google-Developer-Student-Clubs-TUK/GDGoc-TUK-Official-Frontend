@@ -16,5 +16,5 @@ export interface  MemberInfoType  {
 
 
 
-export type FilterTitle = "직군" | "상태" | "활동년도";
+export type FilterTitle = "직군" | "학적 상태" | "활동년도";
 

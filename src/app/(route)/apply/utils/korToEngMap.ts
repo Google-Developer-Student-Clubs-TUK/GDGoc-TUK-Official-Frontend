@@ -18,7 +18,7 @@ export const valueLabelMap:  Record<string, Record<string, string>> = {
     여: "WOMAN",
     남: "MAN",
   },
-  상태: {
+  "학적 상태": {
     재학: "ENROLLED",
     휴학: "LEAVE_OF_ABSENCE",
   },
@@ -34,7 +34,7 @@ export const valueLabelMap:  Record<string, Record<string, string>> = {
     "4학년" :"SENIOR",
   },
 
-  "구분" : {
+  "오거나이저/멤버" : {
     오거나이저 : "ROLE_ORGANIZER",
     멤버 : "ROLE_MEMBER",
     리더 : "ROLE_LEADER"
@@ -57,7 +57,7 @@ export const requiredAnswerKeyMap: Record<string, keyof MemberProfileType> = {
   "학교 이메일": "email",
   직군: "field",
   성별: "gender",
-  "구분":"role",
+  "오거나이저/멤버":"role",
   연락처: "phoneNumber",
   "학적 상태":"enrollmentStatus",
   학과: "major",
