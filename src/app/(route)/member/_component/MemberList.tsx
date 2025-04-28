@@ -1,23 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled, { keyframes } from "styled-components";
 import Image from "next/image";
-import { memberData } from "../_constants/memberData";
 import Footer from "@/app/_components/_layout/Footer";
+import { generationMembersApi } from "../_api";
+import { useQuery } from "@tanstack/react-query";
+import { memberInfoType } from "../_type";
+import { getLabelFromValue } from "../../apply/utils/korToEngMap";
 
-const MemberList = () => {
-  const [generation, setGeneration] = useState<number>(1);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const MemberList = ({ generations }: { generations: string[] }) => {
+  // 선택된 기수
+  const [selectGeneration, setSelectGeneration] = useState<string>("");
+
+  // 선택된 기수의 멤버들 리스트
+  const [MemberInfoList, setMemberInfoList] = useState<memberInfoType[]>([]);
+
+  // 멤버 hover
   const [memberHover, setMemberHover] = useState<number | null>(null);
 
-  const handleGeneration = (selectGeneration: number) => {
-    setGeneration(selectGeneration);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleGeneration = (selectGeneration: string) => {
+    setSelectGeneration(selectGeneration);
     setIsOpen(false);
   };
 
-  const selectedGeneration = memberData.find(
-    (item) => item.generation === generation
-  );
+  // api
+  const { data } = useQuery({
+    queryKey: ["generationMembers", selectGeneration],
+    queryFn: () => generationMembersApi({ generation: selectGeneration }),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setMemberInfoList(data.data.memberList);
+    }
+  }, [data]);
 
   return (
     <div>
@@ -27,32 +45,30 @@ const MemberList = () => {
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <p className="relative items-baseline after:content-[''] after:inline-block after:ml-2 after:absolute  after:bg-[url('/icon/arrow_bottom.png')]  after:bottom-[9px] after:w-6 after:h-6 after:bg-no-repeat after:bg-contain  p-2 border-b text-2xl font-bold text-white">
-            {`${generation}기`}
+            {`${selectGeneration}년`}
           </p>
         </div>
         {isOpen && (
           <ul className="bg-bg absolute shadow-lg w-[179px] overflow-hidden  top-[66px] rounded-lg">
-            {memberData.map((item) => (
+            {generations.map((item) => (
               <li
                 className={`${
-                  item.generation === generation ? "bg-point" : ""
+                  item === selectGeneration ? "bg-point" : ""
                 } hover:bg-hover cursor-pointer py-3 flex justify-center `}
-                onClick={() => handleGeneration(item.generation)}
-                key={item.generation}
+                onClick={() => handleGeneration(item)}
+                key={item}
               >
-                <p className="text-base font-bold text-white">
-                  {`${item.generation}기`}
-                </p>
+                <p className="text-base font-bold text-white">{`${item}년`}</p>
               </li>
             ))}
           </ul>
         )}
 
         <MemberContainer
-          key={generation}
+          key={selectGeneration}
           className="mx-[100px] gap-5 mt-[100px] mb-[200px] flex flex-wrap justify-center"
         >
-          {selectedGeneration?.member?.map((member, idx) => (
+          {MemberInfoList.map((member, idx) => (
             <li
               onMouseEnter={() => setMemberHover(idx)}
               onMouseLeave={() => setMemberHover(null)}
@@ -68,13 +84,17 @@ const MemberList = () => {
               <Image
                 width={125}
                 height={147}
-                src="/icon/member/girl_back_profile.png"
+                src={`/icon/member/${
+                  member.gender === "WOMAN"
+                    ? "girl_default_profile.png"
+                    : "boy_default_profile.png"
+                }`}
                 alt="포스터"
                 className="flex-shrink-0  object-cover"
               />
 
               <p className="text-base text-white font-medium">
-                {`${member.name} | ${member.part}`}{" "}
+                {`${member.name} | ${getLabelFromValue("직군", member.field)}`}{" "}
               </p>
             </li>
           ))}{" "}

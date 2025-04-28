@@ -11,8 +11,12 @@ import {
 import Header from "@/app/_components/_layout/Header";
 import MemberFooter from "./_component/MemberFooter";
 import MemberList from "./_component/MemberList";
+import { useQuery } from "@tanstack/react-query";
+import { generationsApi } from "./_api";
 
 export default function Member() {
+  const [generations, setGenerations] = useState<string[]>([]);
+
   // 타이틀 , 소개타이틀
   const sections = [Title, IntroduceTitle];
   const [sectionIndex, setSectionIndex] = useState(0);
@@ -53,6 +57,18 @@ export default function Member() {
 
   const CurrentSection = sections[sectionIndex];
 
+  // api
+  const { data } = useQuery({
+    queryKey: ["generations"],
+    queryFn: () => generationsApi(),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setGenerations(data.data.generations);
+    }
+  }, [data]);
+
   return (
     <div>
       <Header bg={sectionIndex === 0 ? false : true} />
@@ -66,7 +82,7 @@ export default function Member() {
         </div>
       </div>
 
-      <MemberList />
+      <MemberList generations={generations} />
       <MemberFooter scroller={scrollY === 0 ? true : false} />
     </div>
   );
