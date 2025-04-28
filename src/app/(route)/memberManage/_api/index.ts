@@ -58,7 +58,7 @@ export const applicantAnswerApi = async ({
 
 
 
-export const applicantPassApi = async (applicantId: number) => {
+export const applicantPassApi = async (applicantId: number ) => {
   return await baseAPI.post(`/applicants/${applicantId}`, {
     role: "ROLE_MEMBER",
   });

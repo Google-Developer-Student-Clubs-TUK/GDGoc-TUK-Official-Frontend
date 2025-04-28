@@ -42,6 +42,7 @@ export type  EnrollMentType =
     gender: GenderType
     enrollmentStatus:  EnrollMentType
     major: string;
+    role :  RoleType;
     universityYear: UniversityYearType
     phoneNumber : number
   };

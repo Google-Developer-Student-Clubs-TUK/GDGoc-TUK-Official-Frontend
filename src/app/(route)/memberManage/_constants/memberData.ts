@@ -7,7 +7,7 @@ export const columnTitles = [
   "학과",
   "이메일",
   "성별",
-  "상태",
+  "학적 상태",
   "학년",
   "활동년도",
   "구분",
@@ -26,7 +26,6 @@ export const columnKeys: (keyof MemberInfoType | "id")[] = [
   "universityYear",
   "generation",
   "role",
-
 ];
 
 

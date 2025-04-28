@@ -2,20 +2,19 @@ import { useQuestionAnswerStore } from "@/app/(route)/apply/_store/questionAnswe
 import { TextFormPropsType } from "@/app/(route)/apply/_type/formPropsType";
 import React from "react";
 
-const LongText = ({ admin, idx }: TextFormPropsType) => {
+const LongText = ({ admin, questionId }: TextFormPropsType) => {
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
+  const answer = questionAnswerList.find((q) => q.questionId === questionId);
   return (
     <textarea
       readOnly={admin}
       onChange={
-        !admin && idx !== undefined
-          ? (e) => setAnswer(idx, e.target.value, "single")
+        !admin
+          ? (e) => setAnswer(questionId, e.target.value, "single")
           : undefined
       }
-      className=" h-[162px] text-white px-4 py-3 w-full rounded-xl bg-bg placeholder:text-placeholder placeholder:text-base placeholder:font-normal"
-      value={
-        !admin && idx !== undefined ? questionAnswerList[idx].contents : ""
-      }
+      className="h-[162px] text-white px-4 py-3 w-full rounded-xl bg-bg placeholder:text-placeholder"
+      value={!admin ? answer?.contents[0] ?? "" : ""}
       placeholder="질문형 대답"
     />
   );

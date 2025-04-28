@@ -6,7 +6,7 @@ import Button from "@/app/_components/_ui/Button";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import { emailApi, emailCodeApi } from "../../../../_api";
 
-const EmailForm = ({ idx }: TextFormPropsType) => {
+const EmailForm = ({ questionId }: TextFormPropsType) => {
   // 이메일인 것이 비어있으면 지원서 제출이 안되게
 
   const { setAnswer } = useQuestionAnswerStore();
@@ -19,7 +19,7 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
   const emailConFirmSuccess = () => {
     setSendCode(true);
     alert("인증이 완료되었습니다");
-    setAnswer(idx, email, "single");
+    setAnswer(questionId, email, "single");
   };
 
   const emailError = (res) => {
@@ -44,6 +44,9 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
   };
 
   const onSendEmailCode = () => {
+    // 이메일 api 잘되면 제거
+    setAnswer(questionId, email, "single");
+
     alert("인증코드가 전송되었습니다");
     if (!sendEmail) setSendEmail(true);
     emailMutation.mutate({
@@ -53,11 +56,11 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
 
   return (
     <div className="gap-3 flex w-full flex-col">
-      <div className="w-full gap-5 flex ">
+      <div className="w-full flex justify-between">
         <Input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          width="calc(100% - 130px)"
+          width="410px"
           placeholder={"이메일을 입력해주세요"}
           readOnly={sendCode}
         />
@@ -65,7 +68,6 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
           disabled={sendCode}
           onClick={onSendEmailCode}
           bg="bg"
-          width="120px"
           title={sendEmail ? "재전송" : "인증번호 발송"}
         />
       </div>
@@ -74,7 +76,7 @@ const EmailForm = ({ idx }: TextFormPropsType) => {
         <Input
           onChange={(e) => setCode(e.target.value)}
           value={code}
-          width="421px"
+          width="410px"
           bg={sendCode ? "point" : "bg"}
           readOnly={!sendEmail || sendCode}
           placeholder={"인증번호"}

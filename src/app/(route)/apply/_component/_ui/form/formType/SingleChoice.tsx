@@ -7,54 +7,56 @@ import { getValueFromLabel } from "@/app/(route)/apply/utils/korToEngMap";
 const SingleChoice = ({
   subQuestions,
   questionId,
-  deleteSubQuestion,
+  onDeleteSubQuestion,
   admin = false,
-  idx,
 }: ChoiceFormPropsType) => {
-  const { addSubQuestion, updateSubField } = useQuestionFormStore();
+  const { addSubQuestion, updateSubField, deleteSubQuestion } =
+    useQuestionFormStore();
   const { setAnswer, questionAnswerList } = useQuestionAnswerStore();
+  const answer = questionAnswerList.find((q) => q.questionId === questionId);
 
   return (
     <div className="flex flex-wrap justify-between gap-4">
-      {subQuestions.map((i, subIdx) => (
+      {subQuestions?.map((i, subIdx) => (
         <Input
           key={subIdx}
           width="270px"
           img={admin ? "/icon/form/minus.png" : undefined}
           alt="삭제"
           imgClick={
-            !admin && deleteSubQuestion
+            admin && onDeleteSubQuestion
               ? () => deleteSubQuestion(questionId, i.subQuestionId)
               : undefined
           }
           btn={
-            !admin && idx !== undefined
-              ? questionAnswerList[idx].contents.includes(
-                  getValueFromLabel(
-                    questionAnswerList[idx].question,
-                    i.subContent
-                  )
+            !admin
+              ? answer?.contents.includes(
+                  getValueFromLabel(answer?.question ?? "", i.subContent)
                 )
               : false
           }
           placeholder="내용을 입력하세요."
           onClick={
-            !admin && idx !== undefined
+            !admin
               ? () => {
-                  const question = questionAnswerList[idx].question;
-                  const translated = getValueFromLabel(question, i.subContent);
-                  setAnswer(idx, translated, "single");
+                  const translated = getValueFromLabel(
+                    answer?.question ?? "",
+                    i.subContent
+                  );
+                  setAnswer(questionId, translated, "single");
                 }
               : undefined
           }
-          onChange={(e) => updateSubField(questionId, subIdx, e.target.value)}
+          onChange={(e) =>
+            updateSubField(questionId, i.subQuestionId, e.target.value)
+          }
           value={i.subContent}
           readOnly={!admin}
         />
       ))}
       {admin && (
         <Input
-          width="w-[270px]"
+          width="270px"
           btn={true}
           img="/icon/plus.png"
           alt="추가"

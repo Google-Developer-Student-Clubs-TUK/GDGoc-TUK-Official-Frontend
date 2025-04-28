@@ -14,7 +14,7 @@ import { getSelectedLabel } from "../../_utils/memberFilter";
 import { useMemberListStore } from "../../_store/memberList";
 import { FilterTitle } from "../../_type";
 
-const FILTER_KEYS: FilterTitle[] = ["직군", "상태", "활동년도"];
+const FILTER_KEYS: FilterTitle[] = ["직군", "학적 상태", "활동년도"];
 
 const filterOptions: Record<FilterTitle, string[]> = Object.fromEntries(
   FILTER_KEYS.map((key) => [key, Object.keys(valueLabelMap[key])])
@@ -35,7 +35,7 @@ const MemberList = () => {
     const value = valueLabelMap[type][label];
     const keyMap: Record<FilterTitle, keyof typeof filters> = {
       직군: "field",
-      상태: "enrollmentStatus",
+      "학적 상태": "enrollmentStatus",
       활동년도: "generation",
     };
     setFilter(keyMap[type], value);
@@ -44,6 +44,7 @@ const MemberList = () => {
 
   const { isLoading, data } = useQuery({
     queryKey: ["memberManageList", currentPage, filters],
+
     queryFn: () =>
       memberManageListApi({
         page: currentPage - 1,
@@ -57,6 +58,7 @@ const MemberList = () => {
 
   useEffect(() => {
     if (data) {
+      console.log(data);
       setTotalPage(data.data.totalPage);
       setCurrentPage(data.data.currentPage + 1);
       setMemberList(data.data.memberManagementResponses);

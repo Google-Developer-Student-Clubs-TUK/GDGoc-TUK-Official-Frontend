@@ -10,7 +10,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { VolunteerItemType } from "./_type/volunteer";
 import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
-import VolunteerButton from "./ui/VolunteerButton";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import Button from "@/app/_components/_ui/Button";
 

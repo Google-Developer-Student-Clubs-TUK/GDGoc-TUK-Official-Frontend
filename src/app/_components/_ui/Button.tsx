@@ -5,6 +5,7 @@ interface ButtonProps {
   title: string;
   plus?: boolean;
   bg?: string;
+  border?: boolean;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
@@ -15,17 +16,20 @@ const Button = ({
   title,
   plus,
   onClick,
+  border = false,
   disabled = false,
 }: ButtonProps) => {
   return (
     <div
       onClick={disabled ? undefined : onClick}
-      className={` border border-gray400 px-6 py-3  hover:bg-opacity-80 flex-shrink-0 flex items-center justify-center rounded-xl  bg-${bg}
+      className={` ${
+        border ? "border border-gray400" : ""
+      } px-6 py-3 flex-shrink-0 flex items-center justify-center rounded-xl  bg-${bg}
       ${disabled ? "cursor-default" : "cursor-pointer"} 
       `}
       style={{ width: width }}
     >
-      <p className="font-normal text-white text-sm"> {title}</p>
+      <p className="font-bold text-white text-base"> {title}</p>
       {plus && (
         <Image
           src="/icon/plus.png"
