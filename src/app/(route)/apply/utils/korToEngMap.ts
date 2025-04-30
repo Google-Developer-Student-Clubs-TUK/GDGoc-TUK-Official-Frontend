@@ -40,9 +40,6 @@ export const valueLabelMap:  Record<string, Record<string, string>> = {
     리더 : "ROLE_LEADER"
   },
 
-  "활동년도" : {
-  "2024" : "2024"
-  },
 
 
  

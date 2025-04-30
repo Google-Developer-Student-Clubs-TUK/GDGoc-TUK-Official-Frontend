@@ -45,6 +45,11 @@ export const handleFilterSelect = (
 export const getSelectedLabel = (title: FilterTitle, filters?: FiltersType) => {
   const key = FILTER_KEY_MAP[title];
   const value = filters?.[key];
+
+  if (!value) return "전체";
+
+  if (title === "활동년도") return value; // ← value가 label과 동일하므로 그대로 반환
+
   const labelMap = valueLabelMap[title];
   return Object.entries(labelMap).find(([, v]) => v === value)?.[0] || "전체";
 };
