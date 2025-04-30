@@ -10,9 +10,7 @@ import { getLabelFromValue } from "../../apply/utils/korToEngMap";
 
 const MemberList = ({ generations }: { generations: string[] }) => {
   // 선택된 기수
-  const [selectGeneration, setSelectGeneration] = useState<string>(
-    generations[0]
-  );
+  const [selectGeneration, setSelectGeneration] = useState<string>("");
 
   // 선택된 기수의 멤버들 리스트
   const [MemberInfoList, setMemberInfoList] = useState<memberInfoType[]>([]);
@@ -38,6 +36,12 @@ const MemberList = ({ generations }: { generations: string[] }) => {
       setMemberInfoList(data.data.memberList);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (generations.length > 0) {
+      setSelectGeneration(generations[generations.length - 1]);
+    }
+  }, [generations]);
 
   return (
     <div>
