@@ -1,61 +1,24 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import Title from "./_component/Title";
 import IntroduceTitle from "./_component/IntroduceTitle";
-import {
-  calculateAdjustedScroll,
-  setOpacityDown,
-} from "@/app/_utils/scrollUtils";
+import { setOpacityDown } from "@/app/_utils/scrollUtils";
 import Header from "@/app/_components/_layout/Header";
 import MemberFooter from "./_component/MemberFooter";
 import MemberList from "./_component/MemberList";
 import { useQuery } from "@tanstack/react-query";
 import { generationsApi } from "./_api";
+import Background from "@/app/_components/_layout/Background";
+import { useScrollSection } from "@/app/_hook/useScrollSection";
 
 export default function Member() {
   const [generations, setGenerations] = useState<string[]>([]);
 
   // 타이틀 , 소개타이틀
   const sections = [Title, IntroduceTitle];
-  const [sectionIndex, setSectionIndex] = useState(0);
-
-  const [adjustedScroll, setAdjustedScroll] = useState(0);
-
-  // 스크롤 Y 위치
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // 브라우저의 현재 보이는 화면 높이
-      const windowHeight = window.innerHeight;
-
-      // 스크롤시 현재 스크롤 위치 업데이트
-      const newScrollY = window.scrollY;
-
-      setScrollY(newScrollY);
-
-      // 스크롤 위치를 화면 높이로 나눔 -> 현재 section 계산
-      const section = Math.min(
-        Math.floor(newScrollY / windowHeight),
-        sections.length - 1
-      );
-      setSectionIndex(section);
-
-      setAdjustedScroll(
-        calculateAdjustedScroll(
-          newScrollY,
-          section !== 0 ? windowHeight * section : 0
-        )
-      );
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const CurrentSection = sections[sectionIndex];
+  const { scrollY, sectionIndex, adjustedScroll, CurrentSection } =
+    useScrollSection(sections);
 
   // api
   const { data } = useQuery({
@@ -87,19 +50,3 @@ export default function Member() {
     </div>
   );
 }
-
-const Background = styled.div<{ img: string; opacity: number }>`
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  opacity: ${(props) => props.opacity};
-  background-image: linear-gradient(
-      270deg,
-      rgba(46, 46, 46, 0.8) 0%,
-      #2e2e2e 73.67%
-    ),
-    url(${(props) => props.img});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
