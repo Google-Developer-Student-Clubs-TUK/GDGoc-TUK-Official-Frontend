@@ -70,8 +70,7 @@ body {
 
 
 button {
-  border: none;
-  background: transparent;
+  all: unset; 
 }
 
 button:focus,
