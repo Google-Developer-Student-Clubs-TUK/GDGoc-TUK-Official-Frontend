@@ -15,7 +15,8 @@ const Main = () => {
 
   return (
     <div>
-      <Header />
+      {sectionIndex === 0 && <Header />}
+
       <Background
         main={true}
         opacity={setOpacityDown(scrollY)}

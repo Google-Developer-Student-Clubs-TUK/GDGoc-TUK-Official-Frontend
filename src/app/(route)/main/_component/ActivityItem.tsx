@@ -23,8 +23,8 @@ export default ActivityItem;
 const ActivityItemContainer = styled.div<{
   $img: string;
 }>`
-  width: 560px;
-  height: 286px;
+  width: 448px;
+  height: 229px;
   padding: 20px;
   flex-shrink: 0;
   border: 1px solid #444;
