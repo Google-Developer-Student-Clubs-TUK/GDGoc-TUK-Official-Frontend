@@ -9,11 +9,6 @@ interface Props {
   onClose: () => void;
 }
 
-interface DateValue {
-  startDate: string | null;
-  endDate: string | null;
-}
-
 const SetPeriodModal = ({ onClose }: Props) => {
 
   const [dateValue, setDateValue] = useState<DateValueType>({
@@ -24,6 +19,9 @@ const SetPeriodModal = ({ onClose }: Props) => {
   const handleValueChange = (newValue: DateValueType) => {
     setDateValue(newValue);
   };
+
+  const currentYear = new Date().getFullYear();
+  const nextYear = currentYear + 1;
 
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
@@ -47,17 +45,31 @@ const SetPeriodModal = ({ onClose }: Props) => {
 
                 value={dateValue}
                 onChange={handleValueChange}
-                displayFormat={"YY.MM.DD"} // 원하는 형식
+                displayFormat={"YY.MM.DD"}
 
                 inputClassName={"rounded-xl py-3 px-4 bg-gray700 focus:outline-none focus:ring-1 focus:ring-point duration-300 text-tMd text-white"}
               />
             </div>
           </div>
 
-          <div className="flex items-center gap-10">
-            <p className="w-[60px] text-tMd font-bold">활동연도</p>
-            <input type="text" className="rounded-xl py-3 px-4 bg-gray700 focus:outline-none focus:ring-1 focus:ring-point duration-300 text-tMd text-white"
-                   placeholder="ex) 2025년" required/>
+          <div className="flex items-center gap-6">
+            <label htmlFor="activityYear" className="w-[80px] text-tMd font-bold shrink-0">
+              활동연도
+            </label>
+            <div className="relative w-full max-w-[200px]">
+              <select
+                id="activityYear"
+                className="block w-full appearance-none rounded-xl bg-gray700 text-white text-tMd px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-point duration-300"
+                required
+              >
+                <option value={currentYear}>{currentYear}년</option>
+                <option value={nextYear}>{nextYear}년</option>
+              </select>
+              {/* 커스텀 화살표 아이콘 */}
+              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
+                ▼
+              </div>
+            </div>
           </div>
         </div>
 
