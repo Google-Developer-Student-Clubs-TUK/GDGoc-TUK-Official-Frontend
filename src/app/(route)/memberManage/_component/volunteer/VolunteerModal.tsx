@@ -14,7 +14,6 @@ import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import Button from "@/app/_components/_ui/Button";
 
-
 interface Props {
   volunteer: VolunteerItemType;
   onClose: () => void;
@@ -40,14 +39,12 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
     alert("합격 처리 되었습니다");
 
     window.location.reload();
-
   };
 
   const applicantRejectSuccess = () => {
     alert("불합격 처리 되었습니다");
 
     window.location.reload();
-
   };
 
   // 합격 mutation
@@ -71,9 +68,7 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
     pass: boolean;
   }) => {
     if (pass) {
-
       passMutation.mutate({ applicantId, role: volunteer.role });
-
     } else {
       rejectMutation.mutate(applicantId);
     }
@@ -94,7 +89,7 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
             </p>
             <p className="text-tSm text-gray200">
               {volunteer.major}/
-              {getLabelFromValue("상태", volunteer.enrollmentStatus)}
+              {getLabelFromValue("학적 상태", volunteer.enrollmentStatus)}
             </p>
           </div>
           <div className="my-10 flex flex-col gap-4  max-h-[300px] overflow-auto">
@@ -113,19 +108,16 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
         </div>
         <div className="w-full h-[1px] bg-gray500" />
 
-
         <div className="flex justify-between mt-6">
           <Button onClick={onClose} title={"닫기"} bg="gray600" />
           <div className="flex gap-5">
             <Button
-
               onClick={() =>
                 setApplicantPass({
                   applicantId: volunteer.applicantId,
                   pass: false,
                 })
               }
-
               title={"불합격"}
               bg="gray600"
             />
@@ -137,10 +129,8 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
                   pass: true,
                 })
               }
-
               title={"합격"}
               bg="gray600"
-
             />
           </div>
         </div>
