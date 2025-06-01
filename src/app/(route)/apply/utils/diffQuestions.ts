@@ -6,6 +6,7 @@ export const getNewQuestions = (questionList: QuestionItemType[]): NewQuestion[]
     .map((newItem, idx) => ({
       questionId: -1 * (idx + 1),
       content: newItem.content,
+      page: newItem.page,
       questionType: newItem.questionType,
       isRequired: newItem.isRequired,
       isDeletable: newItem.isDeletable,

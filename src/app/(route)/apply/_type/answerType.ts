@@ -18,6 +18,11 @@ export type  EnrollMentType =
   | "MAN"
 
 
+  export type RoleType =
+  | "ROLE_MEMBER"
+  | "ROLE_ORGANIZER"
+  | "ROLE_LEADER"
+
 
 
   export interface AnswerItemType {
@@ -37,8 +42,10 @@ export type  EnrollMentType =
     gender: GenderType
     enrollmentStatus:  EnrollMentType
     major: string;
+    role :  RoleType;
     universityYear: UniversityYearType
     phoneNumber : number
+    generation?: string
   };
 
 

@@ -3,11 +3,8 @@ import { getQuestionTypeMap } from "../../../utils/getQuestionTypeMap";
 import { QuestionItemType } from "../../../_type/formType";
 import { QuestionsType } from "../../../_type/questionsType";
 
-interface AnswerFormPropsType extends QuestionItemType {
-  idx: number;
-}
 const AnswerForm = ({
-  idx,
+  page,
   order,
   isDeletable,
   questionId,
@@ -15,13 +12,12 @@ const AnswerForm = ({
   isRequired,
   content,
   subQuestions,
-}: AnswerFormPropsType) => {
+}: QuestionItemType) => {
   const questionTypeMap = getQuestionTypeMap({
     questionId,
     subQuestions,
     admin: false,
-    idx: idx,
-    required: isRequired,
+    isRequired,
   });
 
   return (

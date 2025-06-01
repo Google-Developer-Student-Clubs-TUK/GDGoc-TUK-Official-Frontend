@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { QuestionItemType } from "../../../_type/formType";
@@ -15,6 +15,7 @@ interface NewFormPropsType extends QuestionItemType {
 }
 const NewForm = ({
   order,
+  page,
   isDeletable,
   questionId,
   questionType,
@@ -73,6 +74,7 @@ const NewForm = ({
   const questionTypeMap = getQuestionTypeMap({
     questionId,
     subQuestions,
+    isRequired,
     onDeleteSubQuestion,
     admin: true,
   });

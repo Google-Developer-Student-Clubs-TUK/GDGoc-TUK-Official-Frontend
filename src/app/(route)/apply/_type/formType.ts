@@ -28,6 +28,7 @@ export interface NewSubQuestion {
 export interface NewQuestion extends BaseQuestion {
   questionId: number;
   content: string;
+  page:number
   newSubQuestions: NewSubQuestion[];
 }
 
@@ -52,6 +53,7 @@ export interface QuestionItemSubType {
 
 export interface QuestionItemType extends BaseQuestion {
   questionId : number,
+  page:number
   content: string,
   subQuestions:  QuestionItemSubType [];
 }

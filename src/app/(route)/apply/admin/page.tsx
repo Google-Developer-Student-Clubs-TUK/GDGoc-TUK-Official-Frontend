@@ -11,7 +11,7 @@ import {
 } from "@dnd-kit/sortable";
 import { SortableItem } from "../_component/_ui/SortableItem";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import useDragSort from "../_hook/useDragSort";
 import { QuestionItemType } from "../_type/formType";
 import { useQuery } from "@tanstack/react-query";
@@ -23,15 +23,25 @@ import {
 } from "../utils/diffQuestions";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import DragHandler from "../_component/_ui/DragHandler";
+import ProgressBar from "../_component/_ui/ProgressBar";
 
 const ApplyAdmin = () => {
   const {
     addNewQuestion,
     prevQuestionList,
     setQuestion,
+    setLastPage,
     questionList,
     updateOrder,
+    lastPage,
+    currentPage,
+    goToPrevPage,
+    goToNextPage,
   } = useQuestionFormStore();
+
+  const currentPageQuestionList = useMemo(() => {
+    return questionList.filter((q) => q.page === currentPage);
+  }, [questionList, currentPage]);
 
   // 드래그 훅
   const { activeItem, sensors, handleDragStart, handleDragEnd } =
@@ -42,18 +52,22 @@ const ApplyAdmin = () => {
     });
 
   // api
-  const { isLoading, data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ["questionList"],
     queryFn: () => questionListApi(),
   });
 
   useEffect(() => {
     if (data) {
-      const newData = data.data.questionResponses;
-      console.log(data);
-      setQuestion(newData);
+      const newData = data.data;
+      setQuestion(newData.questionResponses);
+      setLastPage(newData.lastPage);
     }
   }, [data]);
+
+  useEffect(() => {
+    console.log(questionList);
+  }, [questionList]);
 
   const { mutation: updateQuestionMutation } = useGenericMutation({
     mutationFn: updateQuestionApi,
@@ -70,6 +84,11 @@ const ApplyAdmin = () => {
       newQuestions,
     });
 
+    console.log({
+      modifiedQuestions,
+      newQuestions,
+      updatedQuestionOrders,
+    });
     updateQuestionMutation.mutate({
       modifiedQuestions,
       newQuestions,
@@ -83,7 +102,9 @@ const ApplyAdmin = () => {
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">
           <Confirm />
-          <form className="grid gap-[60px] mt-1 ">
+
+          <ProgressBar currentPage={currentPage} totalPage={lastPage} />
+          <form className="grid gap-[60px] mt-12">
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter} // 충돌 감지 알고리즘
@@ -91,13 +112,14 @@ const ApplyAdmin = () => {
               onDragEnd={handleDragEnd}
             >
               <SortableContext
-                items={questionList.map((item) => item.questionId)}
+                items={currentPageQuestionList.map((item) => item.questionId)}
                 strategy={verticalListSortingStrategy} // 정렬 전략 (세로 리스트)
               >
-                {questionList.map((i) => (
+                {currentPageQuestionList.map((i, idx) => (
                   <SortableItem key={i.questionId} id={i.questionId}>
                     {({ listeners, attributes }) => (
                       <NewForm
+                        page={i.page}
                         order={i.order}
                         questionId={i.questionId}
                         content={i.content}
@@ -119,6 +141,7 @@ const ApplyAdmin = () => {
               <DragOverlay>
                 {activeItem ? (
                   <NewForm
+                    page={activeItem.page}
                     order={activeItem.order}
                     questionId={activeItem.questionId}
                     content={activeItem.content}
@@ -130,15 +153,35 @@ const ApplyAdmin = () => {
                 ) : null}
               </DragOverlay>
             </DndContext>
-            <Button title={"질문 추가"} plus={true} onClick={addNewQuestion} />
-            <div className="flex justify-end ">
-              <Button
-                hover={false}
-                onClick={submitQuestions}
-                title={"저장하기"}
-                width="120px"
-                bg="areaBg"
-              />
+            <button
+              type="button"
+              className="w-full bg-point  items-center justify-center rounded-xl px-6 py-3 hover:bg-hover font-bold text-white text-base"
+              onClick={addNewQuestion}
+            >
+              {`질문 추가`}&nbsp; &nbsp;+
+            </button>
+            <div className="flex justify-between ">
+              <div>
+                {currentPage !== 0 && (
+                  <Button
+                    onClick={goToPrevPage}
+                    title={"이전"}
+                    bg="gray600"
+                    border={true}
+                  />
+                )}
+              </div>
+
+              <div className="flex gap-4">
+                <Button onClick={goToNextPage} title={"다음"} bg="areaBg" />
+                {currentPage === lastPage && (
+                  <Button
+                    onClick={submitQuestions}
+                    title={"저장하기"}
+                    bg="areaBg"
+                  />
+                )}
+              </div>
             </div>
           </form>
         </div>
