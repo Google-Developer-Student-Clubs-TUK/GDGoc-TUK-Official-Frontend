@@ -10,8 +10,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { VolunteerItemType } from "./_type/volunteer";
 import { getLabelFromValue } from "@/app/(route)/apply/utils/korToEngMap";
+
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import Button from "@/app/_components/_ui/Button";
+
 
 interface Props {
   volunteer: VolunteerItemType;
@@ -36,12 +38,16 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
   // 성공시 알람
   const applicantPassSuccess = () => {
     alert("합격 처리 되었습니다");
+
     window.location.reload();
+
   };
 
   const applicantRejectSuccess = () => {
     alert("불합격 처리 되었습니다");
+
     window.location.reload();
+
   };
 
   // 합격 mutation
@@ -65,7 +71,9 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
     pass: boolean;
   }) => {
     if (pass) {
+
       passMutation.mutate({ applicantId, role: volunteer.role });
+
     } else {
       rejectMutation.mutate(applicantId);
     }
@@ -105,16 +113,19 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
         </div>
         <div className="w-full h-[1px] bg-gray500" />
 
+
         <div className="flex justify-between mt-6">
           <Button onClick={onClose} title={"닫기"} bg="gray600" />
           <div className="flex gap-5">
             <Button
+
               onClick={() =>
                 setApplicantPass({
                   applicantId: volunteer.applicantId,
                   pass: false,
                 })
               }
+
               title={"불합격"}
               bg="gray600"
             />
@@ -126,8 +137,10 @@ const VolunteerModal = ({ volunteer, onClose }: Props) => {
                   pass: true,
                 })
               }
+
               title={"합격"}
               bg="gray600"
+
             />
           </div>
         </div>
