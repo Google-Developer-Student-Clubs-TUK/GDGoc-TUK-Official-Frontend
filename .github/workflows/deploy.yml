@@ -23,10 +23,12 @@ jobs:
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: sudo docker build -t gdgoctuk/gdgoctuk-frontend .
+        run: |
+          docker build -t gdgoctuk/gdgoctuk-frontend .
 
       - name: Push Docker image to Docker Hub
-        run: sudo docker push gdgoctuk/gdgoctuk-frontend
+        run: |
+          docker push gdgoctuk/gdgoctuk-frontend
 
       - name: SSH into Oracle VM and deploy
         uses: appleboy/ssh-action@master
