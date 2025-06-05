@@ -15,13 +15,9 @@ jobs:
 
       - name: Copy next.config.ts
         run: echo "${{ secrets.NEXT_CONFIG_TS }}" > next.config.js
-      - name: Verify next.config.ts content
-        run: cat next.config.ts
 
       - name: Copy .env
         run: echo "${{ secrets.ENV }}" > .env
-      - name: Verify env content
-        run: cat .env
 
       - name: Build Docker image
         run: sudo docker build -t gdgoctuk/gdgoctuk-frontend .
