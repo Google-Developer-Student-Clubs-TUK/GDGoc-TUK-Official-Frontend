@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Copy next.config.ts
-        run: echo "${{ secrets.NEXT_CONFIG_TS }}" > ./next.config.ts
+        run: echo "${{ secrets.NEXT_CONFIG_TS }}" > next.config.ts
 
       - name: Copy .env
-        run: echo "${{ secrets.ENV }}" > ./.env
+        run: echo "${{ secrets.ENV }}" > .env
 
       - name: Build Docker image
         run: sudo docker build -t gdgoctuk/gdgoctuk-frontend .
