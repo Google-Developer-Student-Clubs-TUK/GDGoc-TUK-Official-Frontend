@@ -64,13 +64,22 @@ const MemberList = () => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-between">
-        <DefaultInput
-          width="362px"
-          placeholder="이름을 검색하세요."
-          img="/icon/search.png"
-          value={filters.name || ""}
-          onChange={(e) => setFilter("name", e.target.value)}
-        />
+        <div className="relative" style={{ width: "362px" }}>
+          <input
+            type="text"
+            placeholder="이름을 검색하세요."
+            value={filters.name || ""}
+            onChange={(e) => setFilter("name", e.target.value)}
+            className={`pr-12 text-white px-4 py-3 w-full rounded-[999px] placeholder:text-gray300 bg-gray500 placeholder:font-normal`}
+          />
+          <Image
+            src="/icon/search.png"
+            alt="검색"
+            width={16}
+            height={16}
+            className="min-w-[16px] min-h-[16px] object-contain absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
+          />
+        </div>
         <div className="bg-gray500 rounded-xl cursor-pointer">
           {!isEditing ? (
             <div
