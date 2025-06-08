@@ -22,7 +22,7 @@ const SpeechBubble = ({
 }: SpeechBubbleProps) => {
   return (
     <div
-      className="absolute z-50"
+      className="absolute z-50 w-fit"
       style={{
         top,
         bottom,

@@ -6,19 +6,14 @@ import SlideIn from "./SlideIn";
 const Activity = () => {
   return (
     <div className="py-[200px] ">
-      <div className="flex flex-col px-[100px] text-white gap-6 relative">
-        <SpeechBubble top={10} left={700} rotate={10} text="뭐하나요?" />
-        <p
-          className="text-[40px]"
-          style={{ lineHeight: "120%", letterSpacing: "-1px" }}
-        >
-          {" "}
-          What does <br /> Google Developer Groups on Campus do
-        </p>
-        <p
-          className="text-base"
-          style={{ lineHeight: "180%", letterSpacing: "-0.4px" }}
-        >
+      <div className="flex flex-col px-[100px] text-white gap-6">
+        <div className="border border-red-500 w-fit relative">
+          <SpeechBubble top={0} left={0} rotate={10} text="뭐하나요?"/>
+          <p className="text-[40px] font-allura leading-[1.2]"> 
+            {" "} What does <br /> Google Developer Groups on Campus do
+          </p>
+        </div>
+        <p className="text-base leading-[1.8]">
           매 학기 각 분야별 스터디를 진행하고 구글 솔루션 챌린지에 참여합니다.
           <br />
           또한, 개발자끼리의 네트워킹을 위해 DevFest와 연합해커톤을 진행합니다.
