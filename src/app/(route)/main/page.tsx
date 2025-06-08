@@ -1,7 +1,5 @@
 "use client";
 import Header from "../../_components/_layout/Header";
-// import Background from "../../_components/_layout/Background";
-// import { setOpacityDown } from "@/app/_utils/scrollUtils";
 import { useScrollSection } from "@/app/_hook/useScrollSection";
 import { setOpacityUp, setScaleUp } from "@/app/_utils/scrollUtils";
 
@@ -29,13 +27,6 @@ const Main = () => {
 
       <Title/>
       <IntroduceTitle opacity={setOpacityUp(scrollY)} scale={setScaleUp(scrollY)}/>
-
-      {/* <div className="h-[400vh]">
-        <div className="z-10 sticky top-0 h-screen flex justify-center items-center">
-          <CurrentSection/>
-        </div>
-      </div> */}
-
       <Activity />
       <ParticipatedCount />
       <Footer />

@@ -39,9 +39,9 @@ const IntroduceTitle = ({ opacity, scale }: TitleProps) => {
           <p className="text-[40px] font-semibold font-serifKR text-center">
             What is <br /> Google Developer Groups on Campus
           </p>
-          <Image src="/icon/main/main_bubble_what.png" alt="what" width={180} height={80} className="absolute top-[-40px] left-[60px] object-cover"/>
+          <Image src="/icon/main/main_bubble_what.png" alt="what" width={180} height={80} className="absolute top-[-40px] left-[60px] object-cover" />
         </div>
-        
+
         <div className="flex flex-col gap-4 text-center text-base leading-[1.8] text-gray200">
           <p>
             GDG on Campus는 전 세계 대학의 개발자 지망생에게 실무 경험을 쌓고,{" "}
@@ -65,18 +65,19 @@ export default IntroduceTitle;
 const IntroduceTitleContainer = styled.div`
   width: 100vw;
   height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
   position: relative;
 `;
 
 const TitleTextContainer = styled.div<TitleProps>`
+  width: 100%;
+  height: 100%;
+  max-width: 1800px;
+  padding: 0 40px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap:24px;
 
