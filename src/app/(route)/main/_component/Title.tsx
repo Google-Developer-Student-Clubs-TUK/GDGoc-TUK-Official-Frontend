@@ -16,7 +16,7 @@ const Title = () => {
       <TitleContainer scale={animate ? 1 : 0} opacity={animate ? 1 : 0}>
         <div className="flex flex-col items-center text-white">
           <p className="text-base">GDG on Campus 한국공학대학교에 오신 것을 환영합니다</p>
-          <h1 className="text-[40px] font-serifKR font-semibold text-center">
+          <h1 className="text-[40px] font-serifKR font-bold text-center">
             Google Developer Groups on Campus<br />Tech University of Korea
           </h1>
         </div>

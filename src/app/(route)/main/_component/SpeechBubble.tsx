@@ -32,7 +32,7 @@ const SpeechBubble = ({
   return (
     <div className="absolute z-50 w-fit h-fit" style={style}>
       <div className="w-fit relative py-3 px-5 border border-transparent rounded-full bg-gray500">
-        <p className="font-bold text-lg text-white" >
+        <p className="font-bold text-lg text-white leading-[1.2]" >
           {highlightText && (
             <span className="text-[#FFBA00]">{highlightText}</span>
           )}{" "}
