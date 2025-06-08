@@ -1,4 +1,3 @@
-
 // opacity 감소 
 export const setOpacityDown= (scrollY: number) => {
   return  Math.max(1 - scrollY * 0.002, 0); 

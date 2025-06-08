@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   description: "GDGoC TUK Homepage",
 };
 
-import { Allura } from "next/font/google";
+import { Noto_Serif_KR } from "next/font/google";
 
-const allura = Allura({
+const serifKR = Noto_Serif_KR({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-allura',
+  variable: '--font-serifKR',
 });
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className={allura.variable}>
+    <html lang="en" className={serifKR.variable}>
       <body>
         {" "}
         <TanStackProvider>{children}</TanStackProvider>

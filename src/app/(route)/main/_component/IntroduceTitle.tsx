@@ -1,24 +1,23 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import SpeechBubble from "./SpeechBubble";
+import styled from "styled-components";
 import Image from "next/image";
-const IntroduceTitle = ({ scrollY }: { scrollY: number }) => {
+
+interface TitleProps {
+  scale: number;
+  opacity: number;
+}
+
+const IntroduceTitle = ({ opacity, scale }: TitleProps) => {
+
   return (
     <IntroduceTitleContainer>
-      <SpeechBubble
-        top={-100}
-        left={-40}
-        rotate={-10}
-        text="이게 뭔데요?"
-        highlightText="잠깐!"
-      />
       <LogoImageLeft
         src="/icon/main/gdgoc.png"
         alt="위로고"
         width={161}
         height={84}
         style={{
-          transform: `translateX(${scrollY * -0.1}px)`,
+          transform: `translateX(${scrollY * -0.3}px) rotate(-15deg)`,
         }}
       />
 
@@ -28,19 +27,22 @@ const IntroduceTitle = ({ scrollY }: { scrollY: number }) => {
         width={344}
         height={180}
         style={{
-          transform: `translateX(${scrollY * 0.1}px)`,
+          transform: `translateX(${scrollY * 0.3}px) rotate(24deg)`,
         }}
       />
 
-      <TitleTextContainer>
-        <p className=" text-5xl font-normal text-center text-white">
-          What is <br /> Google Developer Groups on Campus
-        </p>
-
-        <div
-          className="grid gap-4 mt-6 text-center text-base font-normal  text-white"
-          style={{ lineHeight: "180%", letterSpacing: "-0.4px" }}
-        >
+      <TitleTextContainer
+        scale={scale}
+        opacity={opacity}
+      >
+        <div className="relative">
+          <p className="text-[40px] font-semibold font-serifKR text-center">
+            What is <br /> Google Developer Groups on Campus
+          </p>
+          <Image src="/icon/main/main_bubble_what.png" alt="what" width={180} height={80} className="absolute top-[-40px] left-[60px] object-cover"/>
+        </div>
+        
+        <div className="flex flex-col gap-4 text-center text-base leading-[1.8] text-gray200">
           <p>
             GDG on Campus는 전 세계 대학의 개발자 지망생에게 실무 경험을 쌓고,{" "}
             <br />
@@ -60,32 +62,34 @@ const IntroduceTitle = ({ scrollY }: { scrollY: number }) => {
 
 export default IntroduceTitle;
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: none
-  }
+const IntroduceTitleContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
 `;
 
-const IntroduceTitleContainer = styled.div`
+const TitleTextContainer = styled.div<TitleProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-`;
+  gap:24px;
 
-const TitleTextContainer = styled.div`
-  animation: ${fadeIn} 1s ease-in;
+  color:white;
+  opacity: ${({ opacity }) => opacity};
+  transform: scale(${({ scale }) => scale});
+  transition: transform 0.2s ease-out;
 `;
 
 const LogoImageLeft = styled(Image)`
   position: absolute;
-  top: -160px;
-  left: -140px;
+  top:120px;
+  left:220px;
   min-width: 161px;
   min-height: 84px;
   object-fit: contain;
@@ -94,11 +98,10 @@ const LogoImageLeft = styled(Image)`
 
 const LogoImageRight = styled(Image)`
   position: absolute;
-  top: 240px;
-  right: -160px;
+  bottom: 60px;
+  right: 80px;
   min-width: 344px;
   min-height: 180px;
   object-fit: contain;
-  transform: rotate(35deg);
   transition: transform 0.2s ease-out;
 `;

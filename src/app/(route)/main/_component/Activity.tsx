@@ -5,10 +5,10 @@ import SlideIn from "./SlideIn";
 
 const Activity = () => {
   return (
-    <div className="py-[200px] ">
-      <div className="flex flex-col px-[100px] text-white gap-6">
-        <div className="border border-red-500 w-fit relative">
-          <SpeechBubble top={0} left={0} rotate={10} text="뭐하나요?"/>
+    <div className="w-screen border border-blue-800">
+      <div className="flex flex-col px-[40px] w-full max-w-[1800px] text-white gap-6">
+        <div className="w-fit relative">
+          <SpeechBubble top={-32} right={-100} rotate={10} text="뭐하나요?"/>
           <p className="text-[40px] font-allura leading-[1.2]"> 
             {" "} What does <br /> Google Developer Groups on Campus do
           </p>

@@ -27,7 +27,7 @@ export default {
       },
 
       fontFamily: {
-        allura: ['var(--font-allura)'],
+        serifKR: ['var(--font-serifKR)'],
       },
       
       fontSize: {

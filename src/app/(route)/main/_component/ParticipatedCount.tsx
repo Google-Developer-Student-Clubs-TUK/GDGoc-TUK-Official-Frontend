@@ -5,7 +5,7 @@ const ParticipatedCount = () => {
   return (
     <div className="items-center bg-gray500 py-[80px]">
       <div className="flex flex-col items-center gap-10 w-full max-w-[1280px] mx-auto px-10">
-        <p className="text-white text-[40px] font-allura">How many participated</p>
+        <p className="text-white text-[28px] font-serifKR">How many participated</p>
         <div className="w-full grid grid-cols-4">
           <CountItem title="함께한 인원" count={125} />
           <CountItem title="프로젝트" count={23} />
