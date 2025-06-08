@@ -14,7 +14,7 @@ const CountItem = ({ title, count }: CountItemProps) => {
   return (
     <div
       ref={ref}
-      className="flex text-white flex-col gap-2 w-[285px] items-center"
+      className="flex text-white flex-col gap-2 items-center"
     >
       <p className="text-base">{title}</p>
       <p className="text-6xl font-bold">{countUp}</p>
