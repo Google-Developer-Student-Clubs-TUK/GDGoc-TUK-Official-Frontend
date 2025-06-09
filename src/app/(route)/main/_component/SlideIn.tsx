@@ -49,6 +49,10 @@ const Wrapper = styled.div<{
   $direction: "left" | "right";
 }>`
   opacity: 0;
+  width: 100%;
+  max-width: 1800px;
+  padding: 0 40px;
+  
   transform: translateX(
     ${(props) => (props.$direction === "left" ? "-100px" : "100px")}
   );

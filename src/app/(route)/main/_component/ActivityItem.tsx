@@ -23,16 +23,18 @@ export default ActivityItem;
 const ActivityItemContainer = styled.div<{
   $img: string;
 }>`
-  width: 448px;
-  height: 229px;
+  width: 100%;
+  height: 240px;
   padding: 20px;
   flex-shrink: 0;
   border: 1px solid #444;
+
   border-radius: 12px;
   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, #2e2e2e 100%),
     url(${(props) => props.$img});
   display: flex;
   align-items: end;
+  
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

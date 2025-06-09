@@ -24,9 +24,12 @@ export default {
         gray500: 'var(--gray-500)',
         gray600: 'var(--gray-600)',
         gray700: 'var(--gray-700)',
-
       },
 
+      fontFamily: {
+        serifKR: ['var(--font-serifKR)'],
+      },
+      
       fontSize: {
         ttLg: "var(--title-lg)",
         ttMd: "var(--title-md)",

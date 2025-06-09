@@ -1,0 +1,58 @@
+name: Deploy to Oracle Instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Load code from GitHub repository
+        uses: actions/checkout@v4
+
+      - name: Copy next.config.ts
+        run: echo "${{ secrets.NEXT_CONFIG_JS }}" | base64 --decode > next.config.js
+
+      - name: Copy .env
+        run: echo "${{ secrets.ENV }}" > .env
+
+      - name: nextjs build caching
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Log in to Docker Hub (GitHub Actions)
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t gdgoctuk/gdgoctuk-frontend .
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push gdgoctuk/gdgoctuk-frontend
+
+      - name: SSH into Oracle VM and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ORACLE_VM_IP }}
+          username: ${{ secrets.ORACLE_VM_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script: |
+            sudo docker pull gdgoctuk/gdgoctuk-frontend
+            sudo docker stop frontend || true
+            sudo docker rm frontend || true
+            sudo docker run -d \
+              --name frontend \
+              -p 3000:3000 \
+              --restart=always \
+              gdgoctuk/gdgoctuk-frontend
+            sudo docker image prune -f
