@@ -16,17 +16,21 @@ const Main = () => {
     <div className="overflow-hidden">
       <Header />
       {/** 스크롤 시 헤더 유지 제거
-        * @comment : sectionIndex 변경 시 헤더 숨김처리를 헤더를 계속 보여주기 위해 제거
-        * @code : {sectionIndex === 0 && <Header />}
-      */}
+       * @comment : sectionIndex 변경 시 헤더 숨김처리를 헤더를 계속 보여주기 위해 제거
+       * @code : {sectionIndex === 0 && <Header />}
+       */}
 
       {/** Title 배경요소
-        * @comment : 메인페이지 하부에서 백그라운드 zIndex문제로 Title 컴포넌트로 이동
-        * @code : <Background main={true} opacity={setOpacityDown(scrollY)} img="/image/main-bg.svg" />
-      */}
+       * @comment : 메인페이지 하부에서 백그라운드 zIndex문제로 Title 컴포넌트로 이동
+       * @code : <Background main={true} opacity={setOpacityDown(scrollY)} img="/image/main-bg.svg" />
+       */}
 
-      <Title/>
-      <IntroduceTitle opacity={setOpacityUp(scrollY)} scale={setScaleUp(scrollY)}/>
+      <Title />
+      <IntroduceTitle
+        scrollY={scrollY}
+        opacity={setOpacityUp(scrollY)}
+        scale={setScaleUp(scrollY)}
+      />
       <Activity />
       <ParticipatedCount />
       <Footer />

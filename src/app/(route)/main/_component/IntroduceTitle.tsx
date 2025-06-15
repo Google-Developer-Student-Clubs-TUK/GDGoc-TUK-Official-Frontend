@@ -7,9 +7,10 @@ import SpeechBubble from "./SpeechBubble";
 interface TitleProps {
   scale: number;
   opacity: number;
+  scrollY: number;
 }
 
-const IntroduceTitle = ({ opacity, scale }: TitleProps) => {
+const IntroduceTitle = ({ opacity, scale, scrollY }: TitleProps) => {
   return (
     <IntroduceTitleContainer>
       <LogoImageLeft

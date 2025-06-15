@@ -41,7 +41,7 @@ export default function Member() {
       />
       <div className="h-[400vh]">
         <div className="z-10 sticky top-0 h-screen flex justify-center items-center">
-          <CurrentSection scrollY={adjustedScroll} />
+          {CurrentSection && <CurrentSection scrollY={adjustedScroll} />}
         </div>
       </div>
 
