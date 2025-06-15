@@ -32,7 +32,7 @@ export const useScrollSection = <T extends React.ElementType>(sections: T[]) => 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sections.length]);
 
-  const CurrentSection = sections[sectionIndex];
+const CurrentSection = typeof window !== 'undefined' ? sections[sectionIndex] : null;
 
   return {
     scrollY,
