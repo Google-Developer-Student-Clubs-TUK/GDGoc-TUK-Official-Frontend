@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+ 'use client'
+ import { useEffect, useState } from "react";
 import { calculateAdjustedScroll } from "../_utils/scrollUtils";
 
 // 공통 스크롤 섹션 로직을 훅으로 분리

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -9,7 +10,6 @@ interface TitleProps {
 }
 
 const IntroduceTitle = ({ opacity, scale }: TitleProps) => {
-
   return (
     <IntroduceTitleContainer>
       <LogoImageLeft
@@ -32,15 +32,18 @@ const IntroduceTitle = ({ opacity, scale }: TitleProps) => {
         }}
       />
 
-      <TitleTextContainer
-        scale={scale}
-        opacity={opacity}
-      >
+      <TitleTextContainer scale={scale} opacity={opacity}>
         <div className="relative">
           <p className="text-[40px] font-serifKR text-center">
             What is <br /> Google Developer Groups on Campus?
           </p>
-          <SpeechBubble top={-24} left={60} rotate={-10} highlightText="잠깐!" text="이게 뭔데요?"/>
+          <SpeechBubble
+            top={-24}
+            left={60}
+            rotate={-10}
+            highlightText="잠깐!"
+            text="이게 뭔데요?"
+          />
           {/* <Image src="/icon/main/main_bubble_what.png" alt="what" width={180} height={80} className="absolute top-[-40px] left-[60px] object-cover" /> */}
         </div>
 
@@ -81,9 +84,9 @@ const TitleTextContainer = styled.div<TitleProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:24px;
+  gap: 24px;
 
-  color:white;
+  color: white;
   opacity: ${({ opacity }) => opacity};
   transform: scale(${({ scale }) => scale});
   transition: transform 0.2s ease-out;
@@ -91,8 +94,8 @@ const TitleTextContainer = styled.div<TitleProps>`
 
 const LogoImageLeft = styled(Image)`
   position: absolute;
-  top:120px;
-  left:220px;
+  top: 120px;
+  left: 220px;
   min-width: 161px;
   min-height: 84px;
   object-fit: contain;
