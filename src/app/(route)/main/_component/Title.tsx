@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { getMyCookie } from "@/app/_providers/action";
 
 const Title = () => {
-
+  const [isLeader, setIsLeader] = useState(false);
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
+    async function fetchCookie() {
+      const cookie = await getMyCookie();
+      if (cookie?.name === "JSESSIONID") {
+        const role = localStorage.getItem("role");
+        if (role) {
+          setIsLeader(true);
+        }
+      }
+    }
+    fetchCookie();
+  }, []);
 
+  useEffect(() => {
     const timer = setTimeout(() => setAnimate(true), 100);
     return () => clearTimeout(timer);
   }, []);
@@ -16,12 +29,21 @@ const Title = () => {
     <TitleWrap>
       <TitleContainer scale={animate ? 1 : 0} opacity={animate ? 1 : 0}>
         <div className="flex flex-col items-center text-white">
-          <p className="text-base">GDG on Campus 한국공학대학교에 오신 것을 환영합니다</p>
+          <p className="text-base">
+            GDG on Campus 한국공학대학교에 오신 것을 환영합니다
+          </p>
           <h1 className="text-[40px] font-serifKR font-bold text-center">
-            Google Developer Groups on Campus<br />Tech University of Korea
+            Google Developer Groups on Campus
+            <br />
+            Tech University of Korea
           </h1>
         </div>
-        <Link href="/apply" className="flex px-6 py-3 items-center justify-center mt-12 text-base text-white border border-white rounded-xl cursor-pointer hover:bg-white hover:text-bg duration-300">지원하기</Link>
+        <Link
+          href={`/apply${isLeader ? "/admin" : ""}`}
+          className="flex px-6 py-3 items-center justify-center mt-12 text-base text-white border border-white rounded-xl cursor-pointer hover:bg-white hover:text-bg duration-300"
+        >
+          {`${isLeader ? "지원서 수정하기" : "지원하기"}`}
+        </Link>
       </TitleContainer>
     </TitleWrap>
   );
@@ -42,7 +64,7 @@ const TitleWrap = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-`
+`;
 
 const TitleContainer = styled.div<TitleProps>`
   display: flex;
