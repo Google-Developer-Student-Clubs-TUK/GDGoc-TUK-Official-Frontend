@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useEffect, useState, ChangeEvent } from "react";
 
 const Confirm = () => {
@@ -44,9 +45,7 @@ const Confirm = () => {
         <h1 className="font-bold text-white text-[28px]">
           GDGoc TUK 4기 지원 신청서
         </h1>
-        <p className="text-[#CCC] text-sm underline decoration-solid decoration-skip-ink-auto decoration-auto underline-offset-auto">
-          다음에 지원할게요
-        </p>
+        <Link href="/" className="text-[#CCC] text-sm underline decoration-solid decoration-skip-ink-auto decoration-auto underline-offset-auto">다음에 지원할게요</Link>
       </div>
       <div className="w-full h-fit rounded-xl flex flex-col p-5 bg-[#212121]">
         <div className="flex justify-between mb-[48px]">
