@@ -9,8 +9,12 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onLoginSuccess = () => {
+  const onLoginSuccess = (data) => {
     alert("로그인되었습니다");
+    /* 실제 이름 데이터 입력 넣기  */
+    localStorage.setItem("name", "리더");
+    if (data.data.role === "ROLE_LEADER")
+      localStorage.setItem("role", "ROLE_LEADER");
     router.push("/");
   };
 
