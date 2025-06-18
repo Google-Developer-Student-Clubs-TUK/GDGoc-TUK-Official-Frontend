@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { getMyCookie } from "@/app/_providers/action";
+import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 
 const Title = () => {
-  const [isLeader, setIsLeader] = useState(false);
   const [animate, setAnimate] = useState(false);
-
-  useEffect(() => {
-    async function fetchCookie() {
-      const cookie = await getMyCookie();
-      if (cookie?.name === "JSESSIONID") {
-        const role = localStorage.getItem("role");
-        if (role) {
-          setIsLeader(true);
-        }
-      }
-    }
-    fetchCookie();
-  }, []);
-
+  const isLeader = useLeaderCheck();
   useEffect(() => {
     const timer = setTimeout(() => setAnimate(true), 100);
     return () => clearTimeout(timer);

@@ -7,11 +7,12 @@ import AvailableApply from "./components/AvailableApply";
 import UnAvailableApply from "./components/UnAvailableApply";
 import SetPeriod from "./components/SetPeriod";
 import { recruitmentsStatusApi } from "./_api";
+import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 
 const Recruitment = () => {
   const [isAvailable, setIsAvailable] = useState(null); // 지원 가능 여부.
 
-  const userRole = true; // true = 리드
+  const isLeader = useLeaderCheck();
 
   // 질문 get
   const { data } = useQuery({
@@ -75,16 +76,16 @@ const Recruitment = () => {
       </div>
 
       {/* Right */}
-      {userRole ? (
+      {isLeader ? (
         isAvailable ? (
-          <UnAvailableApply userRole={userRole} />
+          <UnAvailableApply userRole={isLeader} />
         ) : (
           <SetPeriod />
         )
       ) : isAvailable ? (
         <AvailableApply />
       ) : (
-        <UnAvailableApply userRole={userRole} />
+        <UnAvailableApply userRole={isLeader} />
       )}
     </div>
   );
