@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import Header from "@/app/_components/_layout/Header";
 import AvailableApply from "./components/AvailableApply";
 import UnAvailableApply from "./components/UnAvailableApply";
 import SetPeriod from "./components/SetPeriod";
@@ -27,9 +28,10 @@ const Recruitment = () => {
   }, [data]);
 
   return (
-    <div className="flex pl-[100px] h-screen">
+    <div className="flex h-screen">
+      <Header />
       {/* Left */}
-      <div className="w-1/2 flex flex-col justify-center gap-12">
+      <div className="w-1/2 pl-10 flex flex-col justify-center gap-12">
         {/* Title */}
         <div className="text-white flex flex-col gap-2">
           <h1 className="text-ttLg font-bold">

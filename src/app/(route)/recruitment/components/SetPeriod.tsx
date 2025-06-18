@@ -17,7 +17,7 @@ const SetPeriod = () => {
   }
 
   return (
-    <div className="relative w-1/2 flex flex-col justify-center items-center bg-[url('/image/recruitment-bg.png')] bg-cover bg-center group" onClick={openModal}>
+    <div className="relative w-1/2 flex flex-col justify-center items-center  pr-10 bg-[url('/image/recruitment-bg.png')] bg-cover bg-center group" onClick={openModal}>
       <div id="overlay" className="absolute z-0 top-0 left-0 h-full w-full bg-gradient-to-r from-[#2E2E2E] to-[#2E2E2E50] cursor-pointer"></div>
 
       <div className="z-10 relative overflow-hidden cursor-pointer">

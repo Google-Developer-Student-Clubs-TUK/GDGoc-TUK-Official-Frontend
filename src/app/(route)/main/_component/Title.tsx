@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes, css } from "styled-components";
+import styled from "styled-components";
+import Link from "next/link";
 
 const Title = () => {
 
@@ -20,9 +21,7 @@ const Title = () => {
             Google Developer Groups on Campus<br />Tech University of Korea
           </h1>
         </div>
-        <div className="flex px-6 py-3 items-center justify-center mt-12 text-base text-white border border-white rounded-xl cursor-pointer hover:bg-white hover:text-bg duration-300">
-          지원하기
-        </div>
+        <Link href="/apply" className="flex px-6 py-3 items-center justify-center mt-12 text-base text-white border border-white rounded-xl cursor-pointer hover:bg-white hover:text-bg duration-300">지원하기</Link>
       </TitleContainer>
     </TitleWrap>
   );
