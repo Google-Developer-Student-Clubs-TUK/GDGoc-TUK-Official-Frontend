@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getMyCookie } from "@/app/_providers/action";
 
 export function useLeaderCheck() {
-  const [isLeader, setIsLeader] = useState(false);
+  const [isLeader, setIsLeader] = useState(true);
 
   useEffect(() => {
     async function fetchCookie() {
