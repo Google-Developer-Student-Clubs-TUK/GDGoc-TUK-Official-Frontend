@@ -39,7 +39,7 @@ const Header = ({ bg = false }: { bg?: boolean }) => {
     <div
       className={`${
         bg ? "bg-bg" : "bg-transparent"
-      } w-full max-w-[1800px] fixed flex justify-between top-9 z-50 px-10 `}
+      } w-full max-w-[1800px] flex justify-between fixed top-0 left-1/2 -translate-x-1/2 z-50 py-9 px-10`}
     >
       <Link href="/" className="flex-1">
         <Image
