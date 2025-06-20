@@ -1,5 +1,6 @@
 // SetPeriodModal.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 // Datepicker
 import Datepicker from "react-tailwindcss-datepicker";
@@ -47,19 +48,35 @@ const SetPeriodModal = ({ onClose }: Props) => {
     });
   };
 
+  // 활동연도 Dropdown 관련
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
       <div className="bg-gray600 p-10 rounded-xl w-[680px] max-w-[680px] text-white relative">
         {/* 타이틀 */}
         <div className="flex flex-col gap-1 text-white ">
-          <p className="text-ttMd font-bold">지원기간 설정하기</p>
-          <p className="text-tSm text-gray200">모집기간을 설정해주세요.</p>
+          <p className="text-ttMd font-bold">모집기간 설정하기</p>
+          <p className="text-tSm text-gray200">활동연도는 지원자들이 활동할 연도를 의미합니다.</p>
         </div>
 
         {/* 설정 콘텐츠 */}
         <div className="flex flex-col gap-4 my-10">
           <div className="flex items-center gap-10">
-            <p className="w-[60px] text-tMd font-bold">모집기간</p>
+            <p className="w-fit text-tMd font-bold">모집기간</p>
             <div>
               <Datepicker
                 primaryColor={"green"}
@@ -75,30 +92,44 @@ const SetPeriodModal = ({ onClose }: Props) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-10">
             <label
               htmlFor="activityYear"
-              className="w-[80px] text-tMd font-bold shrink-0"
+              className="w-fit text-tMd font-bold"
             >
               활동연도
             </label>
-            <div className="relative w-full max-w-[200px]">
-              <select
-                value={year}
-                onChange={(e) => {
-                  setYear(parseInt(e.target.value));
-                }}
-                id="activityYear"
-                className="block w-full appearance-none rounded-xl bg-gray700 text-white text-tMd px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-point duration-300"
-                required
+            <div className="relative w-full max-w-[200px]" ref={dropdownRef}>
+              <div
+                onClick={() => setOpen((prev) => !prev)}
+                className="cursor-pointer bg-gray700 text-white text-tMd px-4 py-3 rounded-xl flex justify-between items-center"
               >
-                <option value={currentYear}>{currentYear}년</option>
-                <option value={currentYear + 1}>{currentYear + 1}년</option>
-              </select>
-              {/* 커스텀 화살표 아이콘 */}
-              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white">
-                ▼
+                {year}년
+                <Image
+                  src="/icon/arrow_bottom.png"
+                  alt="화살표"
+                  width={20}
+                  height={20}
+                  className="pointer-events-none object-cover"
+                />
               </div>
+
+              {open && (
+                <ul className="absolute z-10 mt-3 w-full bg-gray700 rounded-xl overflow-hidden text-white text-tMd">
+                  {[currentYear, currentYear + 1].map((y) => (
+                    <li
+                      key={y}
+                      onClick={() => {
+                        setYear(y);
+                        setOpen(false);
+                      }}
+                      className={`w-full py-4 px-6 hover:bg-gray500 duration-300 cursor-pointer`}
+                    >
+                      {y}년
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
