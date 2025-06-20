@@ -14,7 +14,7 @@ const Main = () => {
 
   return (
     <div className="overflow-hidden">
-      <Header />
+      <Header/>
       {/** 스크롤 시 헤더 유지 제거
        * @comment : sectionIndex 변경 시 헤더 숨김처리를 헤더를 계속 보여주기 위해 제거
        * @code : {sectionIndex === 0 && <Header />}
