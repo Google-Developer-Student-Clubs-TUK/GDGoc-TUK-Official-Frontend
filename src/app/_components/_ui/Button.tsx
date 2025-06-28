@@ -24,12 +24,12 @@ const Button = ({
       onClick={disabled ? undefined : onClick}
       className={` ${
         border ? "border border-gray400" : ""
-      } px-6 py-3 flex-shrink-0 flex items-center justify-center rounded-xl  bg-${bg}
+      } px-6 py-3 flex-shrink-0 flex items-center justify-center rounded-xl bg-${bg}
       ${disabled ? "cursor-default" : "cursor-pointer"} 
       `}
       style={{ width: width }}
     >
-      <p className="font-bold text-white text-base"> {title}</p>
+      <p className="font-bold text-white text-base leading-[1.4]"> {title}</p>
       {plus && (
         <Image
           src="/icon/plus.png"
