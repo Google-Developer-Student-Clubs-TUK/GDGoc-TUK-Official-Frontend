@@ -26,38 +26,32 @@ const Activity = () => {
         <SlideIn direction="left">
           <div className="w-full grid grid-cols-3 gap-5">
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="2024년 GDSC 16개교 연합해커톤"
+              img="/image/main-activity-1.png"
             />
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="Devfest 2023"
+              img="/image/main-activity-2.png"
             />
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="GDSC TUK 스터디 성과 공유"
+              img="/image/main-activity-3.jpeg"
             />
           </div>
         </SlideIn>
         <SlideIn direction="right">
           <div className="w-full grid grid-cols-3 gap-5">
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="타 대학 GDSC 연합 MT"
+              img="/image/main-activity-4.jpeg"
             />
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="GDSC TUK 엠티"
+              img="/image/main-activity-5.jpeg"
             />
             <ActivityItem
-              date="2025.01.24"
-              title="2025 연합 해커톤"
-              img="/image/main-bg.svg"
+              title="2023 GDSC KR Winter Cup"
+              img="/image/main-activity-6.jpeg"
             />
           </div>
         </SlideIn>
