@@ -11,13 +11,13 @@ export const setScaleDown= (scrollY: number) => {
 
 // opacity 증가
 export const setOpacityUp= (scrollY: number) => {
-  return  Math.min(scrollY * 0.0015, 1);
+  return  Math.min(scrollY * 0.001, 1);
 
 }
 
 // scale 증가
 export const setScaleUp= (scrollY: number) => {
-  return Math.min(scrollY * 0.0015, 1);
+  return Math.min(scrollY * 0.001, 1);
 }
 
 
