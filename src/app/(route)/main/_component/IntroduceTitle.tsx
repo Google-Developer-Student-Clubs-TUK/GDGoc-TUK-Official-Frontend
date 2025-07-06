@@ -19,7 +19,7 @@ const IntroduceTitle = ({ opacity, scale, scrollY }: TitleProps) => {
         width={161}
         height={84}
         style={{
-          transform: `translateX(${scrollY * -0.3}px) rotate(-15deg)`,
+          transform: `translateX(${scrollY * -0.1}px) rotate(-15deg)`,
         }}
       />
 
@@ -29,7 +29,7 @@ const IntroduceTitle = ({ opacity, scale, scrollY }: TitleProps) => {
         width={344}
         height={180}
         style={{
-          transform: `translateX(${scrollY * 0.3}px) rotate(24deg)`,
+          transform: `translateX(${scrollY * 0.1}px) rotate(24deg)`,
         }}
       />
 
@@ -70,7 +70,7 @@ export default IntroduceTitle;
 
 const IntroduceTitleContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 150vh;
   position: relative;
 `;
 
@@ -95,7 +95,7 @@ const TitleTextContainer = styled.div<TitleProps>`
 
 const LogoImageLeft = styled(Image)`
   position: absolute;
-  top: 120px;
+  top: 240px;
   left: 220px;
   min-width: 161px;
   min-height: 84px;
@@ -105,7 +105,7 @@ const LogoImageLeft = styled(Image)`
 
 const LogoImageRight = styled(Image)`
   position: absolute;
-  bottom: 60px;
+  bottom: 120px;
   right: 80px;
   min-width: 344px;
   min-height: 180px;
