@@ -37,7 +37,7 @@ export default function Member() {
       <Header bg={sectionIndex === 0 ? false : true} />
       <Background
         opacity={setOpacityDown(scrollY)}
-        img="/image/people-bg.webp"
+        img="/images/people-bg.webp"
       />
       <div className="h-[400vh]">
         <div className="z-10 sticky top-0 h-screen flex justify-center items-center">

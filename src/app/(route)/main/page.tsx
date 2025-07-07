@@ -14,7 +14,7 @@ const Main = () => {
 
   return (
     <div className="overflow-hidden">
-      <Header/>
+      <Header />
       {/** 스크롤 시 헤더 유지 제거
        * @comment : sectionIndex 변경 시 헤더 숨김처리를 헤더를 계속 보여주기 위해 제거
        * @code : {sectionIndex === 0 && <Header />}
@@ -22,7 +22,7 @@ const Main = () => {
 
       {/** Title 배경요소
        * @comment : 메인페이지 하부에서 백그라운드 zIndex문제로 Title 컴포넌트로 이동
-       * @code : <Background main={true} opacity={setOpacityDown(scrollY)} img="/image/main-bg.svg" />
+       * @code : <Background main={true} opacity={setOpacityDown(scrollY)} img="/images/main-bg.svg" />
        */}
 
       <Title />

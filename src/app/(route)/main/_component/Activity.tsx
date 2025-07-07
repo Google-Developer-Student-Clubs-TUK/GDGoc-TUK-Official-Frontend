@@ -8,9 +8,10 @@ const Activity = () => {
     <div className="w-screen py-[200px]">
       <div className="flex flex-col px-[40px] w-full max-w-[1800px] text-white gap-6">
         <div className="w-fit relative">
-          <SpeechBubble top={-20} left={376} rotate={10} text="뭐하나요?"/>
-          <p className="text-[40px] font-serifKR leading-[1.2]"> 
-            {" "} What does <br /> Google Developer Groups on Campus do?
+          <SpeechBubble top={-20} left={376} rotate={10} text="뭐하나요?" />
+          <p className="text-[40px] font-serifKR leading-[1.2]">
+            {" "}
+            What does <br /> Google Developer Groups on Campus do?
           </p>
         </div>
 
@@ -27,15 +28,15 @@ const Activity = () => {
           <div className="w-full grid grid-cols-3 gap-5">
             <ActivityItem
               title="2024년 GDSC 16개교 연합해커톤"
-              img="/image/main-activity-1.png"
+              img="/images/main-activity-1.png"
             />
             <ActivityItem
               title="Devfest 2023"
-              img="/image/main-activity-2.png"
+              img="/images/main-activity-2.png"
             />
             <ActivityItem
               title="GDSC TUK 스터디 성과 공유"
-              img="/image/main-activity-3.jpeg"
+              img="/images/main-activity-3.jpeg"
             />
           </div>
         </SlideIn>
@@ -43,15 +44,15 @@ const Activity = () => {
           <div className="w-full grid grid-cols-3 gap-5">
             <ActivityItem
               title="타 대학 GDSC 연합 MT"
-              img="/image/main-activity-4.jpeg"
+              img="/images/main-activity-4.jpeg"
             />
             <ActivityItem
               title="GDSC TUK 엠티"
-              img="/image/main-activity-5.jpeg"
+              img="/images/main-activity-5.jpeg"
             />
             <ActivityItem
               title="2023 GDSC KR Winter Cup"
-              img="/image/main-activity-6.jpeg"
+              img="/images/main-activity-6.jpeg"
             />
           </div>
         </SlideIn>

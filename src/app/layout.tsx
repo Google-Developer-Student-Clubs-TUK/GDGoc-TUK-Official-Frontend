@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 import { Noto_Serif_KR } from "next/font/google";
 
 const serifKR = Noto_Serif_KR({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-serifKR',
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-serifKR",
 });
 
 export default function RootLayout({
@@ -20,7 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" className={serifKR.variable}>
       <body>

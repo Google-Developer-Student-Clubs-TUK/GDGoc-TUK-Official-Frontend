@@ -46,7 +46,7 @@ const TitleWrap = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background-image: url("/image/main-bg.png");
+  background-image: url("/images/main-bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
