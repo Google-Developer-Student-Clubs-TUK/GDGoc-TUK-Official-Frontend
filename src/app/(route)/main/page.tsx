@@ -8,9 +8,24 @@ import IntroduceTitle from "./_component/IntroduceTitle";
 import Activity from "./_component/Activity";
 import ParticipatedCount from "./_component/ParticipatedCount";
 import Footer from "@/app/_components/_layout/Footer";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { membersCheckApi } from "@/app/_lib/_api";
 
 const Main = () => {
   const { scrollY } = useScrollSection([IntroduceTitle]);
+
+  // 임시 로그인체크 api
+  const { data } = useQuery({
+    queryKey: ["generationMembers"],
+    queryFn: () => membersCheckApi(),
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log("로그인체크 api", data);
+    }
+  }, [data]);
 
   return (
     <div className="overflow-hidden">
