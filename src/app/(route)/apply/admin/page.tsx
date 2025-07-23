@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import NewForm from "../_component/_ui/form/NewForm";
 import Header from "@/app/_components/_layout/Header";
 import Confirm from "../_component/Confirm";
@@ -11,7 +12,7 @@ import {
 } from "@dnd-kit/sortable";
 import { SortableItem } from "../_component/_ui/SortableItem";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useDragSort from "../_hook/useDragSort";
 import { QuestionItemType } from "../_type/formType";
 import { useQuery } from "@tanstack/react-query";
@@ -24,6 +25,7 @@ import {
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import DragHandler from "../_component/_ui/DragHandler";
 import ProgressBar from "../_component/_ui/ProgressBar";
+import LoadingOverlay from "@/app/_components/_layout/LoadingOverlay";
 
 const ApplyAdmin = () => {
   const {
@@ -38,6 +40,9 @@ const ApplyAdmin = () => {
     goToPrevPage,
     goToNextPage,
   } = useQuestionFormStore();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const currentPageQuestionList = useMemo(() => {
     return questionList.filter((q) => q.page === currentPage);
@@ -69,8 +74,16 @@ const ApplyAdmin = () => {
     console.log(questionList);
   }, [questionList]);
 
+  const updateQuestionSuccess = () => {
+    alert("폼이 수정되었습니다");
+    router.push("/");
+  };
+
   const { mutation: updateQuestionMutation } = useGenericMutation({
     mutationFn: updateQuestionApi,
+    onMutateCb: () => setIsSubmitting(true),
+    onSuccessCb: () => updateQuestionSuccess,
+    onSettledCb: () => setIsSubmitting(false),
   });
 
   const submitQuestions = () => {
@@ -98,6 +111,7 @@ const ApplyAdmin = () => {
 
   return (
     <div>
+      {isSubmitting && <LoadingOverlay />}
       <Header />
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">

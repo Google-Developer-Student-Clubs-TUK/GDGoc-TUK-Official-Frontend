@@ -12,8 +12,8 @@ import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 const Recruitment = () => {
   const [isAvailable, setIsAvailable] = useState(false); // 지원 가능 여부.
 
-  const { isLeader } = useLeaderCheck();
-
+  // const { isLeader } = useLeaderCheck();
+  const isLeader = true;
   // 질문 get
   const { data } = useQuery({
     queryKey: ["recruitmentsStatus"],

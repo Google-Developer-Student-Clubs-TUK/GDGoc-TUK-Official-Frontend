@@ -1,32 +1,39 @@
 import { UseMutationOptions, useMutation, MutationFunction } from "@tanstack/react-query";
 
 export interface UseGenericMutationPropsType<TData, TError, TVariables> {
-  onSuccessCb?: (data) => void;
-  onErrorCb?: (error) => void;
-  mutationFn: MutationFunction<TData, TVariables>; //  TData = API 응답 타입, TVariables = 요청 데이터 타입
+  onSuccessCb?: (data: TData) => void;
+  onErrorCb?: (error: TError) => void;
+  onMutateCb?: () => void;
+  onSettledCb?: () => void;
+  mutationFn: MutationFunction<TData, TVariables>;
   options?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>;
 }
-
 
 export function useGenericMutation<TData, TError, TVariables>({
   onSuccessCb,
   onErrorCb,
+  onMutateCb,
+  onSettledCb,
   mutationFn,
   options = {},
 }: UseGenericMutationPropsType<TData, TError, TVariables>) {
   const mutation = useMutation<TData, TError, TVariables>({
-    ...options,
     mutationFn,
+    ...options,
+    onMutate: () => {
+      if (onMutateCb) onMutateCb();
+    },
     onSuccess: (data) => {
-      console.log("성공",data);
       if (onSuccessCb) onSuccessCb(data);
-    }, 
+    },
     onError: (error) => {
-      console.error(error);
-      if(error.response.data.serverErrorMessage){
-        alert(error.response.data.serverErrorMessage)
+      if ((error as any)?.response?.data?.serverErrorMessage) {
+        alert((error as any).response.data.serverErrorMessage);
       }
       if (onErrorCb) onErrorCb(error);
+    },
+    onSettled: () => {
+      if (onSettledCb) onSettledCb();
     },
   });
 

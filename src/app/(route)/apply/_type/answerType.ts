@@ -35,17 +35,18 @@ export type  EnrollMentType =
 
 
   export interface  MemberProfileType  {
-    name: string;
-    studentNumber: string;
+    name: string; 
+    phoneNumber : number
     email: string;
+    universityYear: UniversityYearType
     field: FieldType
+    role :  RoleType;
+    studentNumber: string; 
+    generation?: string // 기수
+    major: string;
     gender: GenderType
     enrollmentStatus:  EnrollMentType
-    major: string;
-    role :  RoleType;
-    universityYear: UniversityYearType
-    phoneNumber : number
-    generation?: string
+ 
   };
 
 
