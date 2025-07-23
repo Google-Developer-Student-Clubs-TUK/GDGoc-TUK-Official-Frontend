@@ -2,37 +2,22 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getMyCookie } from "@/app/_providers/action";
+
+import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 
 const Header = ({ bg = false }: { bg?: boolean }) => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isLeader, setIsLeader] = useState(false);
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 유틸 드롭다운 메뉴 상태 관리
-
+  const { isLogin, isLeader } = useLeaderCheck();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   useEffect(() => {
-    async function fetchCookie() {
-      const cookie = await getMyCookie();
-      if (cookie?.name === "JSESSIONID") {
-        setIsLogin(true);
-        const name = localStorage.getItem("name");
-        const role = localStorage.getItem("role");
-        if (name) {
-          setUserName(name);
-        }
-        if (role) {
-          setIsLeader(true);
-        }
-      } else {
-        setIsLogin(false);
-      }
+    const name = localStorage.getItem("name");
+    if (name !== null) {
+      setUserName(name);
     }
-
-    fetchCookie();
   }, []);
 
   return (

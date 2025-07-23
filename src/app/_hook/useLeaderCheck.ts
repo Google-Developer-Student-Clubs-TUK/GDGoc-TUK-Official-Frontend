@@ -1,22 +1,33 @@
 // hooks/useLeaderCheck.ts
 import { useEffect, useState } from "react";
-import { getMyCookie } from "@/app/_providers/action";
+import { useQuery } from "@tanstack/react-query";
+import { membersCheckApi } from "../_lib/_api";
 
 export function useLeaderCheck() {
-  const [isLeader, setIsLeader] = useState(true);
+  const [isLeader, setIsLeader] = useState(false);
+  const [isLogin , setIsLogin] = useState(false)
 
-  useEffect(() => {
-    async function fetchCookie() {
-      const cookie = await getMyCookie();
-      if (cookie?.name === "JSESSIONID") {
-        const role = localStorage.getItem("role");
-        if (role === "ROLE_LEADER") {
-          setIsLeader(true);
-        }
-      }
+
+  const { data ,error} = useQuery({
+    queryKey: ["generationMembers"],
+    queryFn: () => membersCheckApi(),
+  });
+  
+
+useEffect(() => {
+  console.log("로그인체크")
+  if (error) {
+    setIsLogin(false);
+  }
+
+  if (data) {
+    setIsLogin(true);
+    if (data.data.role === "ROLE_LEADER") {
+      setIsLeader(true);
     }
-    fetchCookie();
-  }, []);
+  }
+}, [data, error]);
 
-  return isLeader;
+
+  return {isLogin,isLeader};
 }

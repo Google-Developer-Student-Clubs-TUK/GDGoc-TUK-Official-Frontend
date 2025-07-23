@@ -5,7 +5,7 @@ import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 
 const Title = () => {
   const [animate, setAnimate] = useState(false);
-  const isLeader = useLeaderCheck();
+  const { isLeader } = useLeaderCheck();
   useEffect(() => {
     const timer = setTimeout(() => setAnimate(true), 100);
     return () => clearTimeout(timer);

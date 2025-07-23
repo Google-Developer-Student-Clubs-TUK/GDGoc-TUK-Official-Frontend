@@ -12,7 +12,7 @@ import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
 const Recruitment = () => {
   const [isAvailable, setIsAvailable] = useState(false); // 지원 가능 여부.
 
-  const isLeader = useLeaderCheck();
+  const { isLeader } = useLeaderCheck();
 
   // 질문 get
   const { data } = useQuery({
@@ -31,7 +31,7 @@ const Recruitment = () => {
   return (
     <div className="flex h-screen">
       <Header />
-      
+
       {/* Left */}
       <div className="flex w-full max-w-[1800px] mx-auto px-10">
         <div className="w-1/2 flex flex-col justify-center gap-12">
@@ -41,8 +41,8 @@ const Recruitment = () => {
               GDGoC TUK와 함께 할 멤버를 모집합니다!
             </h1>
             <p className="text-tMd text-gray200">
-              한국공학대학교 학생, 그리고 열정적인 개발자 혹은 디자이너와 기획자라면 누구나
-              지원 가능합니다.
+              한국공학대학교 학생, 그리고 열정적인 개발자 혹은 디자이너와
+              기획자라면 누구나 지원 가능합니다.
             </p>
           </div>
           <div className="flex flex-col gap-10">
@@ -57,9 +57,7 @@ const Recruitment = () => {
                 </p>
                 <div className="flex gap-2 text-tSm">
                   <p className="font-bold text-[#FFBA00]">참고사항</p>
-                  <p>
-                    서류평가 후 대면 면접이 있을수도 있습니다.
-                  </p>
+                  <p>서류평가 후 대면 면접이 있을수도 있습니다.</p>
                 </div>
               </div>
             </div>
@@ -75,7 +73,7 @@ const Recruitment = () => {
           </div>
         </div>
 
-        {/* Right */}        
+        {/* Right */}
         {isLeader ? (
           isAvailable ? (
             <UnAvailableApply userRole={isLeader} />
