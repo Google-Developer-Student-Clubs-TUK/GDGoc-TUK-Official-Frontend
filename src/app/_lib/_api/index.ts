@@ -9,9 +9,9 @@ export const membersCheckApi = async () => {
 
  
 
-export const logoutApi = async ({}) => {
+export const logoutApi = async () => {
   return await baseAPI.post('/logout');
-  
+
 
 };
 
