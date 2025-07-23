@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; 
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import { logoutApi } from "@/app/_lib/_api";
 

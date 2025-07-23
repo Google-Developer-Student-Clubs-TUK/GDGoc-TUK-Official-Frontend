@@ -58,7 +58,7 @@ const SingleChoice = ({
         <Input
           width="270px"
           btn={true}
-          img="/icon/plus.png"
+          img="/icon/form/plus.png"
           alt="추가"
           onClick={() => addSubQuestion(questionId)}
           placeholder="선택지 추가"

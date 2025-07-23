@@ -15,7 +15,7 @@ const MultipleChoice = ({
   const answer = questionAnswerList.find((q) => q.questionId === questionId);
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-wrap justify-between gap-3">
       {subQuestions?.map((i, subIdx) => (
         <Input
           key={subIdx}
@@ -47,7 +47,7 @@ const MultipleChoice = ({
           width="270px"
           btn={true}
           multiImg="/icon/form/uncheck.png"
-          img="/icon/plus.png"
+          img="/icon/form/plus.png"
           alt="추가"
           onClick={() => addSubQuestion(questionId)}
           placeholder="선택지 추가"

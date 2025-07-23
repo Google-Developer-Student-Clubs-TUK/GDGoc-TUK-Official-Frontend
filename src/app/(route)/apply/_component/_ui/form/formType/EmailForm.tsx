@@ -56,15 +56,17 @@ const EmailForm = ({ questionId }: TextFormPropsType) => {
 
   return (
     <div className="gap-3 flex w-full flex-col">
-      <div className="w-full flex justify-between">
+      <div className="w-full flex gap-5">
         <Input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          width="410px"
+          width="405px"
           placeholder={"이메일을 입력해주세요"}
           readOnly={sendCode}
         />
+
         <Button
+          width="135px"
           disabled={sendCode}
           onClick={onSendEmailCode}
           bg="bg"
@@ -76,7 +78,7 @@ const EmailForm = ({ questionId }: TextFormPropsType) => {
         <Input
           onChange={(e) => setCode(e.target.value)}
           value={code}
-          width="410px"
+          width="405px"
           bg={sendCode ? "point" : "bg"}
           readOnly={!sendEmail || sendCode}
           placeholder={"인증번호"}
@@ -84,7 +86,7 @@ const EmailForm = ({ questionId }: TextFormPropsType) => {
         {sendEmail && (
           <Button
             disabled={false}
-            width="119px"
+            width="135px"
             title={sendCode ? "인증성공" : "인증하기"}
             onClick={confirmEmail}
           />

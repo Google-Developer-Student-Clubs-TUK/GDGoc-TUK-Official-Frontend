@@ -32,7 +32,7 @@ const Button = ({
       <p className="font-bold text-white text-base leading-[1.4]"> {title}</p>
       {plus && (
         <Image
-          src="/icon/plus.png"
+          src="/icon/form/plus.png"
           alt="추가"
           width={16}
           height={16}
