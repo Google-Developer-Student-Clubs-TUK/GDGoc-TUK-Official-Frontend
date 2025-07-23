@@ -1,8 +1,8 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { questionAnswerApi, questionListApi } from "./_api";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuestionFormStore } from "./_store/questionForm";
 import Header from "@/app/_components/_layout/Header";
 import Confirm from "./_component/Confirm";
@@ -12,6 +12,7 @@ import AnswerForm from "./_component/_ui/form/AnswerForm";
 import { requiredAnswerKeyMap } from "./utils/korToEngMap";
 import Button from "@/app/_components/_ui/Button";
 import ProgressBar from "./_component/_ui/ProgressBar";
+import LoadingOverlay from "@/app/_components/_layout/LoadingOverlay";
 
 const Apply = () => {
   const {
@@ -23,6 +24,11 @@ const Apply = () => {
     lastPage,
     currentPage,
   } = useQuestionFormStore();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const router = useRouter();
+
   const { resetAnswers, questionAnswerList } = useQuestionAnswerStore();
 
   const currentPageQuestionList = useMemo(() => {
@@ -46,9 +52,17 @@ const Apply = () => {
     }
   }, [data]);
 
+  const questionAnswerSuccess = () => {
+    alert("지원서가 제출되었습니다");
+    router.push("/");
+  };
+
   // Answer Post
   const { mutation: questionAnswerMutation } = useGenericMutation({
     mutationFn: questionAnswerApi,
+    onMutateCb: () => setIsSubmitting(true),
+    onSuccessCb: () => questionAnswerSuccess,
+    onSettledCb: () => setIsSubmitting(false),
   });
 
   const submitAnswer = () => {
@@ -101,6 +115,7 @@ const Apply = () => {
 
   return (
     <div>
+      {isSubmitting && <LoadingOverlay />}
       <Header />
       <div className="flex justify-center my-[200px]">
         <div className="flex flex-col w-full max-w-[600px]">

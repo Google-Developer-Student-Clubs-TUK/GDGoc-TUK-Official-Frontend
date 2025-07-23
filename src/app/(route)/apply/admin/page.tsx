@@ -76,7 +76,7 @@ const ApplyAdmin = () => {
 
   const updateQuestionSuccess = () => {
     alert("폼이 수정되었습니다");
-    router.push("/");
+    router.push("/apply/admin");
   };
 
   const { mutation: updateQuestionMutation } = useGenericMutation({
