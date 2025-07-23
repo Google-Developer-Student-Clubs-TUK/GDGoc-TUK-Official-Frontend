@@ -155,7 +155,7 @@ const ApplyAdmin = () => {
             </DndContext>
             <button
               type="button"
-              className="w-full bg-point  items-center justify-center rounded-xl px-6 py-3 hover:bg-hover font-bold text-white text-base"
+              className=" bg-point flex items-center justify-center rounded-xl px-6 py-3 hover:bg-hover font-bold text-white text-base"
               onClick={addNewQuestion}
             >
               {`질문 추가`}&nbsp; &nbsp;+

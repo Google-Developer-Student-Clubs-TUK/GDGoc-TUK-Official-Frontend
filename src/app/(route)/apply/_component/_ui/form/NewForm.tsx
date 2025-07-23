@@ -102,8 +102,12 @@ const NewForm = ({
           }   `}
         >
           <div
-            onClick={() => setIsOpen((prev) => !prev)}
-            className=" cursor-pointer p-3 bg-transparent flex justify-between border-b border-[#555]"
+            onClick={() => {
+              if (questionType !== "EMAIL") {
+                setIsOpen((prev) => !prev);
+              }
+            }}
+            className={`cursor-pointer p-3 bg-transparent flex justify-between border-b border-[#555]`}
           >
             <p className="font-normal text-lg text-white">
               {questionTypeMap[questionType as QuestionsType]?.title}

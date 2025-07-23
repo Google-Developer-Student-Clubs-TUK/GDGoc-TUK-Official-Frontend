@@ -6,7 +6,7 @@ import Button from "@/app/_components/_ui/Button";
 import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
 import { emailApi, emailCodeApi } from "../../../../_api";
 
-const EmailForm = ({ questionId }: TextFormPropsType) => {
+const EmailForm = ({ questionId, admin }: TextFormPropsType) => {
   // 이메일인 것이 비어있으면 지원서 제출이 안되게
 
   const { setAnswer } = useQuestionAnswerStore();
@@ -67,8 +67,8 @@ const EmailForm = ({ questionId }: TextFormPropsType) => {
 
         <Button
           width="135px"
-          disabled={sendCode}
-          onClick={onSendEmailCode}
+          disabled={admin || sendCode}
+          onClick={admin ? undefined : onSendEmailCode}
           bg="bg"
           title={sendEmail ? "재전송" : "인증번호 발송"}
         />
@@ -85,10 +85,10 @@ const EmailForm = ({ questionId }: TextFormPropsType) => {
         />
         {sendEmail && (
           <Button
-            disabled={false}
+            disabled={admin || sendCode}
             width="135px"
             title={sendCode ? "인증성공" : "인증하기"}
-            onClick={confirmEmail}
+            onClick={admin ? undefined : confirmEmail}
           />
         )}
       </div>

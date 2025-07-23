@@ -16,7 +16,7 @@ export const getQuestionTypeMap = ({
   return {
     EMAIL: {
       title: "이메일",
-      component: <EmailForm questionId={questionId} />,
+      component: <EmailForm questionId={questionId} admin={admin} />,
     },
 
     SHORT_TEXT: {
