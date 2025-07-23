@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
+import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
+import { logoutApi } from "@/app/_lib/_api";
 
 const Header = ({ bg = false }: { bg?: boolean }) => {
   const [userName, setUserName] = useState("");
@@ -11,6 +13,21 @@ const Header = ({ bg = false }: { bg?: boolean }) => {
   const { isLogin, isLeader } = useLeaderCheck();
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const logoutSuccess = () => {
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+  };
+
+  // Answer Post
+  const { mutation: logoutMutation } = useGenericMutation({
+    mutationFn: logoutApi,
+    onSuccessCb: logoutSuccess,
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
   };
 
   useEffect(() => {
@@ -82,7 +99,10 @@ const Header = ({ bg = false }: { bg?: boolean }) => {
           {isDropdownOpen && (
             <div className="absolute right-0 top-[calc(100%+12px)] bg-gray600 text-white text-right rounded-xl overflow-hidden shadow-lg min-w-[160px]">
               {/* #1 로그아웃 기능 */}
-              <div className="w-full py-4 px-6 hover:bg-gray500 duration-300">
+              <div
+                className="w-full py-4 px-6 hover:bg-gray500 duration-300"
+                onClick={handleLogout}
+              >
                 로그아웃
               </div>
 
