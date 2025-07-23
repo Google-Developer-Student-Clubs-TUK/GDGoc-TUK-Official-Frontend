@@ -2,34 +2,18 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { useLeaderCheck } from "@/app/_hook/useLeaderCheck";
-import { useGenericMutation } from "@/app/_lib/mutations/customMutation";
-import { logoutApi } from "@/app/_lib/_api";
+import { useLogout } from "@/app/_hook/useLogout";
 
 const Header = ({ bg = false }: { bg?: boolean }) => {
   const [userName, setUserName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 유틸 드롭다운 메뉴 상태 관리
   const { isLogin, isLeader } = useLeaderCheck();
+  const { handleLogout } = useLogout();
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
-  const logoutSuccess = () => {
-    localStorage.removeItem("name");
-    localStorage.removeItem("role");
-  };
-
-  // Answer Post
-  const { mutation: logoutMutation } = useGenericMutation({
-    mutationFn: logoutApi,
-    onSuccessCb: logoutSuccess,
-  });
-
-  const handleLogout = () => {
-    logoutMutation.mutate();
-  };
-
   useEffect(() => {
     const name = localStorage.getItem("name");
     if (name !== null) {
